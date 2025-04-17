@@ -1,0 +1,84 @@
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.AssemblyReference.cache
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.CoreCompileInputs.cache
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe.config
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.pdb
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.exe
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.pdb
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe.config
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.pdb
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.AssemblyReference.cache
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.CoreCompileInputs.cache
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dr.873A5238.Up2Date
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.exe
+C:\Users\isak\Documents\Entra 21\trabalho poo final\TesteCustoDeAcaov3\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.pdb
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe.config
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.exe
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\CardsAndDragons.pdb
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.AssemblyReference.cache
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dragons.csproj.CoreCompileInputs.cache
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dr.873A5238.Up2Date
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.exe
+C:\Users\joaog\Desktop\TesteCustoDeAcaov4 com audio\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\CardsAndDragons.pdb
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Asio.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Core.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Midi.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.Wasapi.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinForms.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\NAudio.WinMM.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.AccessControl.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\Cards&Dr.873A5238.Up2Date

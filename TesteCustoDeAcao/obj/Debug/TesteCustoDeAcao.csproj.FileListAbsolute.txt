@@ -1,0 +1,7 @@
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\TesteCustoDeAcao.exe.config
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\TesteCustoDeAcao.exe
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\bin\Debug\TesteCustoDeAcao.pdb
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\TesteCustoDeAcao.csproj.AssemblyReference.cache
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\TesteCustoDeAcao.csproj.CoreCompileInputs.cache
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\TesteCustoDeAcao.exe
+C:\Users\joaog\source\repos\TesteCustoDeAcao\TesteCustoDeAcao\obj\Debug\TesteCustoDeAcao.pdb
