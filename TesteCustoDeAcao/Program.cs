@@ -323,19 +323,6 @@ namespace CardsAndDragons
                     var jogador = PersonagemController.CriarPersonagem(especieEscolhida, classeEscolhida);
                     oJogador.Add(jogador);
 
-                    ICartaUsavel carta = new FacaEnvenenada();
-                    ICartaUsavel carta2 = new FacaEnvenenada();
-                    ICartaUsavel carta3 = new FacaEnvenenada();
-                    ICartaUsavel carta4 = new FacaEnvenenada();
-                    ICartaUsavel carta5 = new FacaEnvenenada();
-                    ICartaUsavel carta6 = new FacaEnvenenada();
-                    jogador.BaralhoCompleto.Add(carta);
-                    jogador.BaralhoCompleto.Add(carta2);
-                    jogador.BaralhoCompleto.Add(carta3);
-                    jogador.BaralhoCompleto.Add(carta4);
-                    jogador.BaralhoCompleto.Add(carta5);
-                    jogador.BaralhoCompleto.Add(carta6);
-
                     PersonagemController.ExibirJogador(jogador);
 
                     estadoAtual = EstadoDoJogo.Jogo;
@@ -364,6 +351,7 @@ namespace CardsAndDragons
 
             bool acabarJogo = false;
             bool acabarBatalha = false;
+            bool primeiroTurno = true;
 
             //começa o jogo
             while (!acabarJogo)
@@ -376,18 +364,25 @@ namespace CardsAndDragons
 
                 //permite que outra batalha começe
                 acabarBatalha = false;
+                primeiroTurno = true;
 
                 //começa uma batalha
                 while (!acabarBatalha)
                 {
-
                     Console.CursorVisible = false;
 
-                    if(batalha.jogador.BaralhoCompra.Count == 0)
+                    if (primeiroTurno)
                     {
-                        oJogador[jogadorAtual].EmbaralharCartas(oJogador[jogadorAtual].BaralhoCompleto);
+                            BatalhaController.RecarregarBaralho(batalha);
+                            oJogador[jogadorAtual].ComprarCartas();
+                        primeiroTurno = false;
                     }
-                    oJogador[jogadorAtual].ComprarCartas();
+
+                    Console.WriteLine($"Cartas na mão: {oJogador[jogadorAtual].Mao.Count}");
+                    foreach (var carta in oJogador[jogadorAtual].Mao)
+                    {
+                        Console.WriteLine($" - {carta.Nome}");
+                    }
 
                     int option = 0;
 
@@ -404,20 +399,29 @@ namespace CardsAndDragons
                     {
                         var inimigoEscolhido = batalha.Inimigos[escolha];
 
-                        string[] opcoesCombate = { "Atacar", "Analisar", "Voltar" };
+                        string[] opcoesCombate = { "Atacar", "Analisar", "Voltar", "Passar Turno" };
                         int acao = MostrarMenuSelecao(false, "Escolha sua Ação!", opcoesCombate);
 
                         switch (acao)
                         {
                             case 1:
-                                PersonagemController.EscolherCartaParaUsar(oJogador[jogadorAtual], new List<OInimigo> { inimigoEscolhido });
-                                batalha.TurnoInimigos();
+                                batalha.EscolherCartaParaUsar(inimigoEscolhido);
+                                batalha.InimigoMorreu();
                                 break;
                             case 2:
                                 batalha.ExibirInimigo(inimigoEscolhido);
                                 break;
                             case 3:
                                 Console.WriteLine("Voltando...");
+                                break;
+                            case 4:
+                                batalha.ChecapeInimigos();
+                                batalha.TurnoInimigos();
+                                if (batalha.jogador.BaralhoCompra.Count == 0)
+                                {
+                                    BatalhaController.RecarregarBaralho(batalha);
+                                }
+                                oJogador[jogadorAtual].ComprarCartas();
                                 break;
                         }
                         Console.ReadKey();

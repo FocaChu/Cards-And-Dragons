@@ -39,7 +39,7 @@ namespace TesteCustoDeAcao.ClassesCartas
 
             public Action<Personagem, List<OInimigo>> Efeito { get; set; }
 
-            public void Usar(Personagem jogador, List<OInimigo> alvos)
+            public void Usar(Personagem jogador, OInimigo alvo)
             {
                 // (verificação de custo)
                 if (jogador.ManaAtual < CustoMana || jogador.StaminaAtual < CustoStamina || jogador.VidaAtual < CustoVida)
@@ -52,8 +52,6 @@ namespace TesteCustoDeAcao.ClassesCartas
                 jogador.StaminaAtual -= CustoStamina;
                 jogador.VidaAtual -= CustoVida;
                 jogador.Ouros -= CustoOuro;
-
-                Efeito?.Invoke(jogador, alvos);
             }
         }
 

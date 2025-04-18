@@ -38,16 +38,8 @@ namespace CardsAndDragons.ClassesCartas
             // preencher 10 linhas no total
         };
 
-        public void Usar(Personagem jogador, List<OInimigo> alvos)
+        public void Usar(Personagem jogador, OInimigo alvo)
         {
-            if (alvos == null || alvos.Count == 0)
-            {
-                Console.WriteLine("Nenhum alvo válido.");
-                return;
-            }
-
-            var alvo = alvos[0];
-
             // Verifica recursos
             if (jogador.StaminaAtual < CustoStamina)
             {

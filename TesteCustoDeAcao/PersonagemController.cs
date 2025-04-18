@@ -205,8 +205,57 @@ namespace CardsAndDragons
             Personagem jogador = new Personagem(nome, especieEscolhida, classeEscolhida);
             return jogador;
         }
-    
 
+        public static void ExibirJogador(Personagem jogador)
+        {
+            Console.WriteLine($"\n{jogador}\n");
+
+            for (int linha = 0; linha < 10; linha++)
+            {
+
+                for (int i = 0; i < jogador.BaralhoCompleto.Count; i++)
+                {
+                    // Define a cor branca
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    // Pega a linha do modelo atual da carta
+                    string linhaModelo = jogador.BaralhoCompleto[i].Modelo[linha];
+
+                    Console.Write(linhaModelo);
+                }
+
+                Console.WriteLine();
+                // pula pra próxima linha do desenho
+            }
+        }
+
+        public static void MostrarCartasNaMao(Personagem jogador)
+        {
+            Console.Clear();
+            Console.WriteLine($"\n===== Cartas de {jogador.Nome} =====\n");
+
+            if (jogador.BaralhoCompleto.Count == 0)
+            {
+                Console.WriteLine("Você não tem cartas.");
+                return;
+            }
+
+            int index = 1;
+            foreach (var carta in jogador.BaralhoCompleto)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{index++} - {carta.Nome}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"  {carta.Descricao}");
+                Console.WriteLine($"  Custo: Vida {carta.CustoVida}, Mana {carta.CustoMana}, Stamina {carta.CustoStamina}, Ouro {carta.CustoOuro}\n");
+            }
+
+            Console.ResetColor();
+            Console.WriteLine("Pressione qualquer tecla para voltar.");
+            Console.ReadKey();
+        }
+
+        
     }
 }
 

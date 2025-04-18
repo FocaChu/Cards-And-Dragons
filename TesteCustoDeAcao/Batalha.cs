@@ -12,7 +12,7 @@ namespace TesteCustoDeAcao
     {
         public Personagem jogador { get; set; }
 
-        public List<OInimigo> Inimigos {  get; set; }
+        public List<OInimigo> Inimigos { get; set; }
 
         private int rodadaAtual = 1;
 
@@ -27,29 +27,36 @@ namespace TesteCustoDeAcao
 
         }
 
-        public void AtacarInimigo(OInimigo inimigoEscolhido)
+        public void EscolherCartaParaUsar(OInimigo inimigoEscolhido)
         {
-            // Remove inimigo se morreu
-            if (inimigoEscolhido.VidaAtual <= 0)
+            Console.Clear();
+            Console.WriteLine($"\n===== Cartas na Mão =====\n");
+
+            for (int i = 0; i < this.jogador.Mao.Count; i++)
             {
-                Console.WriteLine($"{inimigoEscolhido.Nome} foi derrotado!");
-
-                //this.jogador.Ouros = this.jogador.Ouros + 5;
-                this.jogador.Ouros = (this.jogador.Especie.NomeEspecie == "Anão") ? this.jogador.Ouros = this.jogador.Ouros + 10 : this.jogador.Ouros = this.jogador.Ouros + 5;
-
-                Console.WriteLine($"Ouro: {this.jogador.Ouro}");
-
-                this.jogador.ContabilizarXp(inimigoEscolhido);
-
-                Inimigos.Remove(inimigoEscolhido);
+                var carta = this.jogador.Mao[i];
+                Console.WriteLine($"{i + 1}. {carta.Nome} - {carta.Descricao}");
             }
+
+            Console.WriteLine("\nEscolha uma carta para usar (ou 0 para cancelar):");
+
+            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= this.jogador.Mao.Count)
+            {
+                this.jogador.UsarCarta(escolha - 1, inimigoEscolhido);
+            }
+            else
+            {
+                Console.WriteLine("Ação cancelada.");
+            }
+
+            Console.ReadKey();
         }
 
-        public void TurnoInimigos()
+        public void ChecapeInimigos()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("========== !TURNO DOS INIMIGOS! ==========\n");
+            Console.WriteLine("===========   +CHECAPE+   ===========\n");
             Console.ResetColor();
 
             foreach (var inimigo in Inimigos)
@@ -60,16 +67,59 @@ namespace TesteCustoDeAcao
 
                 inimigo.AtualizarCondicoes();
 
-                Console.WriteLine($"\n{inimigo.Nome} está se preparando para agir...\n");
-                System.Threading.Thread.Sleep(500); // Delayzinho dramático
+                InimigoMorreu();
+            }
+        }
+
+        public void InimigoMorreu()
+        {
+            List<OInimigo> inimigosMortos = new List<OInimigo>();
+
+            foreach (var inimigo in Inimigos)
+            {
+                
+                if (inimigo.VidaAtual <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{inimigo.Nome} foi derrotado!");
+                    Console.ResetColor();
+
+                    int ouroGanho = (this.jogador.Especie.NomeEspecie == "Anão") ? 10 : 5;
+                    jogador.Ouros += ouroGanho;
+                    Console.WriteLine($"Você ganhou {ouroGanho} ouros. Total: {jogador.Ouros}");
+
+                    jogador.ContabilizarXp(inimigo);
+
+                    inimigosMortos.Add(inimigo);
+                }
+            }
+            foreach (var morto in inimigosMortos)
+            {
+                Inimigos.Remove(morto);
+            }
+        }
+
+
+
+        public void TurnoInimigos()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("========== !TURNO DOS INIMIGOS! ==========\n");
+            Console.ResetColor();
+
+            foreach (var inimigo in Inimigos)
+            {
+                 Console.WriteLine($"\n{inimigo.Nome} está se preparando para agir...\n");
+                System.Threading.Thread.Sleep(300); // Delayzinho dramático
 
                 inimigo.RealizarTurno(jogador, rodadaAtual);
 
                 Console.WriteLine();
-                System.Threading.Thread.Sleep(1000); // Tempo pra ler o ataque
-            }
+                System.Threading.Thread.Sleep(900); // Tempo pra ler o ataque}
 
-            rodadaAtual++;
+                rodadaAtual++;
+            }
         }
 
         public void ExibirInimigo(OInimigo inimigo)
@@ -88,80 +138,6 @@ namespace TesteCustoDeAcao
                 Console.WriteLine();
                 // pula pra próxima linha do desenho
             }
-        }
-
-        public static void ExibirJogador(Personagem jogador)
-        {
-            Console.WriteLine($"\n{jogador}\n");
-
-            for (int linha = 0; linha < 10; linha++)
-            {
-
-                for (int i = 0; i < jogador.BaralhoCompleto.Count; i++)
-                {
-                    // Define a cor branca
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                    // Pega a linha do modelo atual da carta
-                    string linhaModelo = jogador.BaralhoCompleto[i].Modelo[linha];
-
-                    Console.Write(linhaModelo);
-                }
-
-                Console.WriteLine();
-                // pula pra próxima linha do desenho
-            }
-        }
-
-        public static void MostrarCartasNaMao(Personagem jogador)
-        {
-            Console.Clear();
-            Console.WriteLine($"\n===== Cartas de {jogador.Nome} =====\n");
-
-            if (jogador.BaralhoCompleto.Count == 0)
-            {
-                Console.WriteLine("Você não tem cartas.");
-                return;
-            }
-
-            int index = 1;
-            foreach (var carta in jogador.BaralhoCompleto)
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"{index++} - {carta.Nome}");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"  {carta.Descricao}");
-                Console.WriteLine($"  Custo: Vida {carta.CustoVida}, Mana {carta.CustoMana}, Stamina {carta.CustoStamina}, Ouro {carta.CustoOuro}\n");
-            }
-
-            Console.ResetColor();
-            Console.WriteLine("Pressione qualquer tecla para voltar.");
-            Console.ReadKey();
-        }
-
-        public static void EscolherCartaParaUsar(Personagem jogador, List<OInimigo> alvos)
-        {
-            Console.Clear();
-            Console.WriteLine($"\n===== Cartas na Mão =====\n");
-
-            for (int i = 0; i < jogador.Mao.Count; i++)
-            {
-                var carta = jogador.Mao[i];
-                Console.WriteLine($"{i + 1}. {carta.Nome} - {carta.Descricao}");
-            }
-
-            Console.WriteLine("\nEscolha uma carta para usar (ou 0 para cancelar):");
-
-            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= jogador.Mao.Count)
-            {
-                jogador.UsarCarta(escolha - 1, alvos);
-            }
-            else
-            {
-                Console.WriteLine("Ação cancelada.");
-            }
-
-            Console.ReadKey();
         }
 
         public void RestaurarJogador()

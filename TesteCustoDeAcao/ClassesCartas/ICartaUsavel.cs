@@ -23,7 +23,7 @@ namespace TesteCustoDeAcao
 
         List<string> Modelo { get; }
 
-        void Usar(Personagem jogador, List<OInimigo> alvos);
+        void Usar(Personagem jogador, OInimigo alvo);
     }
 
 }

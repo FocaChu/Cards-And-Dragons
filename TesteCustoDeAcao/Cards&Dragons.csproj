@@ -80,7 +80,6 @@
     <Compile Include="BatalhaController.cs" />
     <Compile Include="ClassesCartas\CartaGenerica.cs" />
     <Compile Include="ClassesCartas\CartaHelper.cs" />
-    <Compile Include="ClassesCartas\ChuvaDeFacas.cs" />
     <Compile Include="ClassesCartas\FacaEnvenenada.cs" />
     <Compile Include="ClassesClasses\Arqueiro.cs" />
     <Compile Include="ClassesClasses\ClasseHelper.cs" />

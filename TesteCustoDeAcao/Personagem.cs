@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCartas;
 using CardsAndDragons.ClassesCondicoes;
 using CardsAndDragons.Inimigos;
+using NAudio.CoreAudioApi;
 using TesteCustoDeAcao;
 using TesteCustoDeAcao.ClassesCartas;
 
@@ -25,7 +27,7 @@ namespace CardsAndDragons
 
         public List<ICartaUsavel> Mao { get; set; } = new List<ICartaUsavel>(); // Cartas na mão
 
-        public List<ICartaUsavel> Descarte { get; set; } = new List<ICartaUsavel>(); // Cartas já usadas
+        public List<ICartaUsavel> BaralhoDescarte { get; set; } = new List<ICartaUsavel>(); // Cartas já usadas
 
 
         public List<ICondicaoTemporaria> Condicoes = new List<ICondicaoTemporaria>();
@@ -103,30 +105,53 @@ namespace CardsAndDragons
             this.Especie = especie;
             this.Classe = classe;
 
-            this.Ouros = (this.Especie.NomeEspecie == "Anão") ? this.Ouros = 150 : this.Ouros = 100;
+            this.Ouros = (this.Especie.NomeEspecie == "Anão") ? 150 : 100;
 
-            this.Regeneracao = (this.Especie.NomeEspecie == "Vampiro") ? this.Regeneracao = 1 : this.Regeneracao = 0;
+            this.Regeneracao = (this.Especie.NomeEspecie == "Vampiro") ? 1 : 0;
 
             this.Nivel = 1;
             this.XpTotal = 100;
 
-            //Status maximos
+            // Status máximos
             this.VidaMax = Classe.VidaMax + 100000;
             this.ManaMax = Classe.ManaMax;
             this.StaminaMax = Classe.StaminaMax;
 
-            //Define os status atuais no maximo ao criar o Personagem
+            // Define os status atuais no máximo ao criar o Personagem
             this.VidaAtual = classe.VidaMax + 100000;
             this.ManaAtual = classe.ManaMax;
             this.StaminaAtual = classe.StaminaMax;
 
-            ////Pega as cartas da classe pro baralho
-            //BaralhoCompleto = Classe.GetCartasIniciais();
-            this.BaralhoCompleto = new List<ICartaUsavel>();
+            this.BaralhoCompleto = new List<ICartaUsavel>
+            {
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada(),
+                new FacaEnvenenada()
+            };
+            this.BaralhoCompra = new Queue<ICartaUsavel>(EmbaralharCartas(this.BaralhoCompleto));
+        }
 
-            // Copia BaralhoCompleto (deck base) para o BaralhoCompra
-            BaralhoCompra = EmbaralharCartas(BaralhoCompleto);
+        public Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
+        {
+            // Embaralha a lista de cartas e coloca na fila
+            var cartasEmbaralhadas = cartas.OrderBy(c => Guid.NewGuid()).ToList();
+            return new Queue<ICartaUsavel>(cartasEmbaralhadas);
+        }
 
+        public void ComprarCartas()
+        {
+            while (this.Mao.Count < 7 && this.BaralhoCompra.Count > 0)
+            {
+                var cartaComprada = this.BaralhoCompra.Dequeue();
+                this.Mao.Add(cartaComprada);
+            }
         }
 
         public override string ToString()
@@ -138,13 +163,6 @@ namespace CardsAndDragons
                    $"\nMana: {this.ManaAtual}/{this.ManaMax}" +
                    $"\nStamina: {this.StaminaAtual}/{this.StaminaMax}" +
                    $"\nOuro: {this.Ouro}";
-
-        }
-
-        public Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
-        {
-            var rng = new Random();
-            return new Queue<ICartaUsavel>(cartas.OrderBy(_ => rng.Next()));
         }
 
         public void Curar(int curaRecebida)
@@ -197,38 +215,20 @@ namespace CardsAndDragons
             }
         }
 
-        public void UsarCarta(int indice, List<OInimigo> alvos)
+        public void UsarCarta(int indice, OInimigo alvo)
         {
-            if (indice < 0 || indice >= Mao.Count) return;
-
-            var carta = Mao[indice];
-            carta.Usar(this, alvos);
-
-            Descarte.Add(carta);
-            Mao.RemoveAt(indice);
-        }
-
-        public void ComprarCartas()
-        {
-            for (int i = 0; i < 3; i++)
+            if (indice >= 0 && indice < Mao.Count)
             {
-                if (Mao.Count >= 15)
-                {
-                    Console.WriteLine("Mão cheia! Carta descartada!");
-                    if (BaralhoCompra.Count > 0)
-                        Descarte.Add(BaralhoCompra.Dequeue());
-                    continue;
-                }
+                var carta = Mao[indice];
 
-                if (BaralhoCompra.Count == 0)
-                {
-                    Console.WriteLine("Reciclando cartas do descarte para o baralho...");
-                    BaralhoCompra = EmbaralharCartas(Descarte);
-                    Descarte.Clear();
-                }
+                // Aplica efeitos
+                carta.Usar(this, alvo);
 
-                if (BaralhoCompra.Count > 0)
-                    Mao.Add(BaralhoCompra.Dequeue());
+                // Remove da mão
+                Mao.RemoveAt(indice);
+
+                // Adiciona ao descarte
+                BaralhoDescarte.Add(carta);
             }
         }
 

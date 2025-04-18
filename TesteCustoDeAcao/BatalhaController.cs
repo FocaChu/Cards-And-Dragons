@@ -92,5 +92,19 @@ namespace CardsAndDragons
             Console.WriteLine("==== COMBATE ====");
             Console.ResetColor();
         }
+
+        public static void RecarregarBaralho(Batalha batalha)
+        {
+            if (batalha.jogador.BaralhoDescarte.Count > 0)
+            {
+                Console.WriteLine("Reciclando cartas do baralho...");
+                batalha.jogador.BaralhoCompra = batalha.jogador.EmbaralharCartas(batalha.jogador.BaralhoDescarte);
+                batalha.jogador.BaralhoDescarte.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Não há mais cartas para reciclar.");
+            }
+        }
     }
 }
