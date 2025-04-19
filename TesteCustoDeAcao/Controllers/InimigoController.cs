@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCondicoes;
 using TesteCustoDeAcao;
 
 namespace CardsAndDragons.Controllers
@@ -53,10 +54,31 @@ namespace CardsAndDragons.Controllers
                 Console.ResetColor();
 
                 inimigo.AtualizarCondicoes();
+            }
+            VerificarMorte(batalha);
+        }
 
-                VerificarMorte(batalha);
+        public static void VerificarSangramento(OInimigo inimigo)
+        {
+            foreach (var condicao in inimigo.Condicoes)
+            {
+                if (condicao is Sangramento sangramento)
+                {
+                    sangramento.AplicarEfeito(inimigo);
+                }
             }
         }
+
+        //public static void VerificarMaldicao(Personagem personagem)
+        //{
+        //    foreach (var condicao in personagem.Condicoes)
+        //    {
+        //        if (condicao is Maldicao maldicao)
+        //        {
+        //            maldicao.AplicarEfeito(personagem);
+        //        }
+        //    }
+        //}
 
         //verifica se algum inimigo morreu
         public static void VerificarMorte(Batalha batalha)

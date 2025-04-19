@@ -395,27 +395,31 @@ namespace CardsAndDragons
 
                         case 3:
                             BatalhaController.AcaoPassarTurno(batalha);
+
+                            Console.ReadKey();
+
+                            int resultadoRodada = BatalhaController.VerificarResultadoRodada(batalha);
+
+                            switch (resultadoRodada)
+                            {
+                                case 1:
+                                    estadoAtual = EstadoDoJogo.Derrota;
+                                    break;
+
+                                case 2:
+                                    acabarBatalha = true;
+                                    break;
+
+                                case 3:
+                                    BatalhaController.NovaRodada(batalha);
+                                    break;
+                            }
+
                             break;
                     }
-
                     Console.ReadKey();
 
-                    int resultadoRodada = BatalhaController.VerificarResultadoRodada(batalha);
 
-                    switch (resultadoRodada)
-                    {
-                        case 1:
-                            estadoAtual = EstadoDoJogo.Derrota;
-                            break;
-
-                        case 2:
-                            acabarBatalha = true;
-                            break;
-
-                        case 3:
-                            BatalhaController.NovaRodada(batalha);
-                            break;
-                    }
 
                 }
 

@@ -164,10 +164,25 @@ namespace CardsAndDragons
             if (indice < 0 || indice >= Mao.Count) return;
 
             var carta = Mao[indice];
-            carta.Usar(this, alvo); // Se alvo for null, funciona do mesmo jeito
+            bool sucesso = false;
 
-            Mao.RemoveAt(indice); // Remove da mão
-            BaralhoDescarte.Add(carta); // Vai pra pilha de descarte
+            // Usa UsarComRetorno ao invés de Usar!
+            if (carta is CartaGenerica generica)
+            {
+                sucesso = generica.UsarComRetorno(this, alvo);
+            }
+            else
+            {
+                carta.Usar(this, alvo); // fallback para outras cartas
+                sucesso = true;
+            }
+
+            // Se foi bem-sucedido, manda pra pilha de descarte
+            if (sucesso)
+            {
+                BaralhoDescarte.Add(carta);
+                Mao.RemoveAt(indice);
+            }
         }
 
 

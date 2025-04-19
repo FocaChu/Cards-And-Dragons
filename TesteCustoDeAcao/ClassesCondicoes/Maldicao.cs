@@ -7,47 +7,47 @@ using TesteCustoDeAcao;
 
 namespace CardsAndDragons.ClassesCondicoes
 {
-    public class Maldicao : ICondicaoTemporaria
+    public class Maldicao : ICondicaoEmpilhavel
     {
         public string Nome => "Maldição";
+        public int Duracao { get; set; } = int.MaxValue;
 
-        public int Duracao { get; set; }
+        public int ValorExecucao { get; set; }
 
-        public int ValorMaldito { get; set; }
-
-        public Maldicao(int valor, int duracao = 5)
+        public Maldicao(int valor)
         {
-            ValorMaldito = valor;
-            Duracao = duracao;
+            ValorExecucao = valor;
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            if (jogador.VidaAtual == ValorMaldito)
+            if (jogador.VidaAtual <= ValorExecucao)
             {
                 jogador.VidaAtual = 0;
-                Console.WriteLine($"{jogador.Nome} foi executado pela Maldição!");
+                Console.WriteLine($"{jogador.Nome} foi consumido pela Maldição!");
             }
         }
 
         public void AplicarEfeito(OInimigo inimigo)
         {
-            if (inimigo.VidaAtual == ValorMaldito)
+            if (inimigo.VidaAtual <= ValorExecucao)
             {
                 inimigo.VidaAtual = 0;
-                Console.WriteLine($"{inimigo.Nome} foi executado pela Maldição!");
+                Console.WriteLine($"{inimigo.Nome} foi consumido pela Maldição!");
             }
         }
 
-        public void Atualizar()
+        public void Fundir(ICondicaoTemporaria nova)
         {
-            Duracao--;
+            var novaMaldicao = nova as Maldicao;
+            if (novaMaldicao == null) return;
+
+            this.ValorExecucao += novaMaldicao.ValorExecucao;
         }
 
-        public bool Expirou()
-        {
-            return Duracao <= 0;
-        }
+        public void Atualizar() { } // Não faz nada
+
+        public bool Expirou() => false;
     }
 
 }

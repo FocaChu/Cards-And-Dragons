@@ -36,19 +36,54 @@ namespace TesteCustoDeAcao.ClassesCartas
 
             ConsumirRecursos(jogador);
 
-            if (EParaInimigo && EfeitoContraInimigo != null)
+            if (EParaInimigo)
             {
-                EfeitoContraInimigo(jogador, alvo);
-            }
-            else if (!EParaInimigo && EfeitoNoJogador != null)
-            {
-                EfeitoNoJogador(jogador);
+                // VERIFICA SE O ALVO EXISTE
+                if (alvo == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Erro: Nenhum inimigo foi selecionado para uma carta de ataque.");
+                    Console.ResetColor();
+                    return;
+                }
+
+                EfeitoContraInimigo?.Invoke(jogador, alvo);
             }
             else
             {
-                Console.WriteLine("Essa carta não tem efeito válido.");
+                EfeitoNoJogador?.Invoke(jogador);
             }
         }
+
+        public bool UsarComRetorno(Personagem jogador, OInimigo alvo)
+        {
+            if (!TemRecursos(jogador))
+            {
+                Console.WriteLine("Você não tem recursos suficientes.");
+                return false;
+            }
+
+            ConsumirRecursos(jogador);
+
+            if (EParaInimigo)
+            {
+                if (alvo == null)
+                {
+                    Console.WriteLine("Erro: Nenhum inimigo foi selecionado.");
+                    return false;
+                }
+
+                EfeitoContraInimigo?.Invoke(jogador, alvo);
+            }
+            else
+            {
+                EfeitoNoJogador?.Invoke(jogador);
+            }
+
+            return true;
+        }
+
+
 
         private bool TemRecursos(Personagem jogador)
         {

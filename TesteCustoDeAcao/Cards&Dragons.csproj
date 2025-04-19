@@ -79,6 +79,7 @@
     <Compile Include="Batalha.cs" />
     <Compile Include="ClassesCondicoes\BonusDeDano.cs" />
     <Compile Include="ClassesCondicoes\EscudoDeDano.cs" />
+    <Compile Include="ClassesCondicoes\ICondicaoEmpilhavel.cs" />
     <Compile Include="ClassesCondicoes\RedutorDeDano.cs" />
     <Compile Include="ClassesDasCartas\FabricaDeCartas.cs" />
     <Compile Include="Controllers\BatalhaController.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="ClassesDosInimigosRPG\Morcego.cs" />
     <Compile Include="ClassesDasCartas\ICartaUsavel.cs" />
     <Compile Include="ClassesDosInimigosRPG\OInimigo.cs" />
+    <Compile Include="Controllers\CondicaoController.cs" />
     <Compile Include="Controllers\InimigoController.cs" />
     <Compile Include="Personagem.cs" />
     <Compile Include="Controllers\PersonagemController.cs" />

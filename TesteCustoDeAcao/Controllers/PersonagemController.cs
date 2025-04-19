@@ -285,7 +285,6 @@ namespace CardsAndDragons
             }
         }
 
-
         public static int SelecionarCarta(Personagem jogador, int option)
         {
             bool selecionado = false;

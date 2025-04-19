@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using TesteCustoDeAcao;
 
 namespace CardsAndDragons.ClassesCondicoes
-{ 
-    public class Veneno : ICondicaoTemporaria
+{
+    public class Veneno : ICondicaoEmpilhavel
     {
         public string Nome => "Veneno";
         public int Duracao { get; set; }
@@ -31,15 +31,19 @@ namespace CardsAndDragons.ClassesCondicoes
             Console.WriteLine($"{inimigo.Nome} sofre {DanoPorTurno} de Veneno!");
         }
 
-        public void Atualizar()
-        {
-            Duracao--;
-        }
+        public void Atualizar() => Duracao--;
 
-        public bool Expirou()
+        public bool Expirou() => Duracao <= 0;
+
+        public void Fundir(ICondicaoTemporaria nova)
         {
-            return Duracao <= 0;
+            var novoVeneno = nova as Veneno;
+            if (novoVeneno == null) return;
+
+            this.DanoPorTurno += novoVeneno.DanoPorTurno;
+            this.Duracao = Math.Max(this.Duracao, novoVeneno.Duracao);
         }
     }
+
 
 }

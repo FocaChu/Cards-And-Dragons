@@ -10,27 +10,25 @@ namespace CardsAndDragons.ClassesCondicoes
     public class Sangramento : ICondicaoTemporaria
     {
         public string Nome => "Sangramento";
-
         public int Duracao { get; set; }
-
-        public int DanoPorAcao { get; set; }
+        public int DanoPorEvento { get; set; }
 
         public Sangramento(int dano, int duracao = 3)
         {
-            DanoPorAcao = dano;
+            DanoPorEvento = dano;
             Duracao = duracao;
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            jogador.VidaAtual -= DanoPorAcao;
-            Console.WriteLine($"{jogador.Nome} sofreu {DanoPorAcao} de Sangramento!");
+            jogador.VidaAtual -= DanoPorEvento;
+            Console.WriteLine($"{jogador.Nome} sofre {DanoPorEvento} de dano por Sangramento!");
         }
 
         public void AplicarEfeito(OInimigo inimigo)
         {
-            inimigo.VidaAtual -= DanoPorAcao;
-            Console.WriteLine($"{inimigo.Nome} sofreu {DanoPorAcao} de Sangramento!");
+            inimigo.VidaAtual -= DanoPorEvento;
+            Console.WriteLine($"{inimigo.Nome} sofre {DanoPorEvento} de dano por Sangramento!");
         }
 
         public void Atualizar()
@@ -43,4 +41,5 @@ namespace CardsAndDragons.ClassesCondicoes
             return Duracao <= 0;
         }
     }
+
 }

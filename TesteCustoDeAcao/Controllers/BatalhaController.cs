@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCondicoes;
 using CardsAndDragons.Controllers;
 using TesteCustoDeAcao;
 
@@ -210,6 +211,29 @@ namespace CardsAndDragons
             PersonagemController.RestaurarJogador(batalha.jogador);
 
         }
+
+        public static void AplicarOuAtualizarCondicao(ICondicaoTemporaria novaCondicao, List<ICondicaoTemporaria> condicoes)
+        {
+            var existente = condicoes.FirstOrDefault(c => c.GetType() == novaCondicao.GetType());
+
+            if (existente == null)
+            {
+                condicoes.Add(novaCondicao);
+            }
+            else
+            {
+                // Se for veneno, cast e atualiza os dados
+                if (existente is Veneno vExistente && novaCondicao is Veneno vNova)
+                {
+                    vExistente.DanoPorTurno += vNova.DanoPorTurno;
+                    vExistente.Duracao = Math.Max(vExistente.Duracao, vNova.Duracao);
+                }
+
+                
+                // Repete esse padrão para Sangramento, Maldicao, etc se quiser personalizar
+            }
+        }
+
 
 
     }

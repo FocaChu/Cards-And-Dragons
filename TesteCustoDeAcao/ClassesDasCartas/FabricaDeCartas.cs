@@ -6,17 +6,73 @@ using System.Threading.Tasks;
 using TesteCustoDeAcao.ClassesCartas;
 using TesteCustoDeAcao;
 using CardsAndDragons.ClassesCondicoes;
+using CardsAndDragons.Controllers;
 
 namespace CardsAndDragons.ClassesDasCartas
 {
     public static class FabricaDeCartas
     {
-        public static ICartaUsavel CriarFacaEnvenenada()
+        public static ICartaUsavel CriarFlechaAfiada()
         {
             return new CartaGenerica
             {
-                Nome = "Faca Envenenada",
-                Descricao = "Causa 5 de dano e aplica Veneno (2 por turno por 3 turnos)",
+                Nome = "Flecha Afiada",
+                Descricao = "Uma flecha de ponta afiada que pode Cortas inimigos.",
+                CustoStamina = 35,
+                CustoMana = 10,
+                Modelo = GerarModeloBasico("7"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    alvo.SofrerDano(5);
+                    CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(3, 2), alvo.Condicoes);
+                    Console.WriteLine($"{alvo.Nome} sofre 5 de dano e foi cortado!");
+                }
+            };
+        }
+
+        public static ICartaUsavel CriarPraga()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Praga",
+                Descricao = "Lança uma praga que Amaldiçoa e Envenena o inimigo o inimigo.",
+                CustoMana = 40,
+                Modelo = GerarModeloBasico("6"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    CondicaoController.AplicarOuAtualizarCondicao(new Veneno(2, 4), alvo.Condicoes);
+                    CondicaoController.AplicarOuAtualizarCondicao(new Maldicao(5), alvo.Condicoes);
+                    Console.WriteLine($"{alvo.Nome} foi amaldiçoado e envenenado!");
+                }
+            };
+        }
+
+        public static ICartaUsavel CriarMaldicaoAmarga()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Maldição Amarga",
+                Descricao = "Causa 5 de dano e aplica 3 de Maldição ao inimigo.",
+                CustoMana = 10,
+                Modelo = GerarModeloBasico("5"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    alvo.SofrerDano(5);
+                    CondicaoController.AplicarOuAtualizarCondicao(new Maldicao(300), alvo.Condicoes);
+                    Console.WriteLine($"{alvo.Nome} sofre 5 de dano e foi amaldiçoado!");
+                }
+            };
+        }
+
+        public static ICartaUsavel CriarFlechaEnvenenada()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Fleca Envenenada",
+                Descricao = "Causa 5 de dano e aplica 3 de Veneno por 3 turnos",
                 CustoStamina = 35,
                 CustoMana = 10,
                 Modelo = GerarModeloBasico("4"),
@@ -24,7 +80,7 @@ namespace CardsAndDragons.ClassesDasCartas
                 EfeitoContraInimigo = (jogador, alvo) =>
                 {
                     alvo.SofrerDano(5);
-                    alvo.Condicoes.Add(new Veneno(2, 3));
+                    CondicaoController.AplicarOuAtualizarCondicao(new Veneno(3, 3), alvo.Condicoes);
                     Console.WriteLine($"{alvo.Nome} sofre 5 de dano e foi envenenado!");
                 }
             };
@@ -99,6 +155,8 @@ namespace CardsAndDragons.ClassesDasCartas
             "                     ",
         };
         }
+
+
     }
 
 
