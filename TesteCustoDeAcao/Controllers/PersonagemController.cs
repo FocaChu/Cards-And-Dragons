@@ -263,6 +263,14 @@ namespace CardsAndDragons
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"\nCarta - {jogador.Mao[option].Nome} \nEfeito - {jogador.Mao[option].Descricao}\n");
+            Console.WriteLine("Custo:");
+            if (jogador.Mao[option].CustoVida > 0) Console.WriteLine($" - {jogador.Mao[option].CustoVida} de Vida");
+            if (jogador.Mao[option].CustoStamina > 0) Console.WriteLine($" - {jogador.Mao[option].CustoStamina} de Stamina");
+            if (jogador.Mao[option].CustoMana > 0) Console.WriteLine($" - {jogador.Mao[option].CustoMana} de Mana");
+            if (jogador.Mao[option].CustoOuro > 0) Console.WriteLine($" - {jogador.Mao[option].CustoOuro} de Ouro");
+            Console.WriteLine("\n");
         }
 
         #endregion
@@ -340,6 +348,14 @@ namespace CardsAndDragons
             else return option;
         }
 
+        //embaralha as cartas do jogador
+        public static Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
+        {
+            // Embaralha a lista de cartas e coloca na fila
+            var cartasEmbaralhadas = cartas.OrderBy(c => Guid.NewGuid()).ToList();
+            return new Queue<ICartaUsavel>(cartasEmbaralhadas);
+        }
+
 
         //Compra as cartas pra mão do jogador
         public static void ComprarCartas(Personagem jogador)
@@ -352,7 +368,7 @@ namespace CardsAndDragons
             if (jogador.BaralhoCompra.Count == 0)
             {
                 Console.WriteLine("Baralho vazio. Reciclando descarte...");
-                jogador.BaralhoCompra = jogador.EmbaralharCartas(jogador.BaralhoDescarte);
+                jogador.BaralhoCompra = PersonagemController.EmbaralharCartas(jogador.BaralhoDescarte);
                 jogador.BaralhoDescarte.Clear();
             }
 
@@ -363,7 +379,7 @@ namespace CardsAndDragons
             if (jogador.BaralhoDescarte.Count > 0)
             {
                 Console.WriteLine("Reciclando cartas do baralho...");
-                jogador.BaralhoCompra = jogador.EmbaralharCartas(jogador.BaralhoDescarte);
+                jogador.BaralhoCompra = PersonagemController.EmbaralharCartas(jogador.BaralhoDescarte);
                 jogador.BaralhoDescarte.Clear();
             }
             else
@@ -375,7 +391,7 @@ namespace CardsAndDragons
         public static void AdicionarCartaAoBaralho(Personagem jogador, ICartaUsavel carta)
         {
             jogador.BaralhoCompleto.Add(carta);
-            jogador.BaralhoCompra = new Queue<ICartaUsavel>(jogador.EmbaralharCartas(jogador.BaralhoCompleto));
+            jogador.BaralhoCompra = new Queue<ICartaUsavel>(PersonagemController.EmbaralharCartas(jogador.BaralhoCompleto));
         }
 
         #endregion

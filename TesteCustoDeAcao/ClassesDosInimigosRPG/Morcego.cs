@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCondicoes;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 using NAudio.Wave;
 
@@ -51,7 +53,7 @@ namespace CardsAndDragons
             //tocadordeaudio.Play();
 
             Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano!");
-            jogador.VidaAtual = jogador.VidaAtual - this.DanoBase;
+            jogador.ReceberDano(DanoBase);
         }
         public override bool PodeUsarHabilidade(int rodadaAtual)
         {
@@ -59,8 +61,9 @@ namespace CardsAndDragons
         }
         public override void UsarHabilidade(Personagem jogador)
         {
-            Console.WriteLine($"{this.Nome} drenou {this.DanoBase} de vida de {jogador.Nome}!"); 
-            jogador.VidaAtual = jogador.VidaAtual - this.DanoBase;
+            Console.WriteLine($"{this.Nome} drenou {this.DanoBase} de vida de {jogador.Nome}!");
+            jogador.ReceberDano(DanoBase);
+            CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(2, 1), jogador.Condicoes);
             this.VidaAtual = this.VidaAtual + this.DanoBase;
         }
 

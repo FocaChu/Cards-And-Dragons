@@ -34,7 +34,7 @@ namespace CardsAndDragons
             // preencher 10 linhas no total
 };
 
-        public override int CooldownHabilidade => 4; // a cada 4 rodadas usa habilidade
+        public override int CooldownHabilidade => 2; // a cada 4 rodadas usa habilidade
 
         public override void Atacar(Personagem jogador)
         {
@@ -47,8 +47,8 @@ namespace CardsAndDragons
             //tocadordeaudio.Init(somAtackEsqueleto);
             //tocadordeaudio.Play();
 
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano!");
-            jogador.VidaAtual = jogador.VidaAtual - this.DanoBase;
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando dano!");
+            jogador.ReceberDano(DanoBase);
         }
         public override bool PodeUsarHabilidade(int rodadaAtual)
         {
@@ -56,8 +56,8 @@ namespace CardsAndDragons
         }
        public override void UsarHabilidade(Personagem jogador)
         {
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano ácido!");
-            jogador.VidaAtual = jogador.VidaAtual - (this.DanoBase * 2);
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando dano toxico!");
+            jogador.ReceberDano(DanoBase);
             CondicaoController.AplicarOuAtualizarCondicao(new Veneno(1, 2), jogador.Condicoes);
         }
 

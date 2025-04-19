@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 using NAudio.Wave;
 
@@ -32,7 +33,7 @@ namespace CardsAndDragons
              // preencher 10 linhas no total
         }; 
 
-        public override int CooldownHabilidade => 3; // a cada 3 rodadas usa habilidade
+        public override int CooldownHabilidade => 2; // a cada 3 rodadas usa habilidade
 
         public override void Atacar(Personagem jogador)
         {
@@ -45,8 +46,8 @@ namespace CardsAndDragons
             //tocadordeaudio.Init(somAtackEsqueleto);
             //tocadordeaudio.Play();
 
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano!");
-            jogador.VidaAtual = jogador.VidaAtual - this.DanoBase;
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando dano!");
+            jogador.ReceberDano(DanoBase);
         }
         public override bool PodeUsarHabilidade(int rodadaAtual)
         {
@@ -54,8 +55,8 @@ namespace CardsAndDragons
         }
         public override void UsarHabilidade(Personagem jogador)
         {
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano critico!");
-            jogador.VidaAtual = jogador.VidaAtual - (this.DanoBase * 2);
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando dano critico!");
+            jogador.ReceberDano(this.DanoBase * 2);
         }
 
         public override void RealizarTurno(Personagem jogador, int rodadaAtual)

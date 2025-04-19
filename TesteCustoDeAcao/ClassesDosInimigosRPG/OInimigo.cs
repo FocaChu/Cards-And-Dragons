@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CardsAndDragons;
 using CardsAndDragons.ClassesCondicoes;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 
 namespace TesteCustoDeAcao
@@ -23,6 +24,7 @@ namespace TesteCustoDeAcao
         public int DanoBase => BaseInimigo.DanoBase;
 
         public int Dificuldade => BaseInimigo.Dificuldade;
+
 
         public List<ICondicaoTemporaria> Condicoes = new List<ICondicaoTemporaria>();
 
@@ -52,13 +54,18 @@ namespace TesteCustoDeAcao
 
         public void RealizarTurno(Personagem jogador, int rodada)
         {
-            if (PodeUsarHabilidade(rodada))
+            if (PodeUsarHabilidade(rodada) && !CondicaoController.VerificarSilencio(Condicoes))
             {
                 BaseInimigo.UsarHabilidade(jogador);
             }
             else
             {
-                BaseInimigo.Atacar(jogador);
+                if (PodeUsarHabilidade(rodada) && CondicaoController.VerificarSilencio(Condicoes))
+                {
+                    Console.WriteLine($"{this.Nome} foi silenciado e não pode usar sua habilidade...");
+                    BaseInimigo.Atacar(jogador);
+                }
+                else  BaseInimigo.Atacar(jogador);
             }
 
         }

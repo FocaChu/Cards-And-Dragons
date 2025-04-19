@@ -213,6 +213,8 @@ namespace CardsAndDragons
 
             batalha.TurnoInimigos();
 
+            Console.ReadKey();
+
             InimigoController.VerificarMorte(batalha);
 
             CondicaoController.Checape(batalha.jogador);

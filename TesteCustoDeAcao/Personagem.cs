@@ -133,7 +133,7 @@ namespace CardsAndDragons
             this.BaralhoCompleto = new List<ICartaUsavel>(classe.GetCartasIniciais());
 
             // Embaralha o baralho completo e define como baralho de compra
-            this.BaralhoCompra = new Queue<ICartaUsavel>(EmbaralharCartas(this.BaralhoCompleto));
+            this.BaralhoCompra = PersonagemController.EmbaralharCartas(this.BaralhoCompleto);
         }
 
 
@@ -148,15 +148,6 @@ namespace CardsAndDragons
                    $"\nStamina: {this.StaminaAtual}/{this.StaminaMax}" +
                    $"\nOuro: {this.Ouro}";
         }
-
-        //embaralha as cartas do jogador
-        public Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
-        {
-            // Embaralha a lista de cartas e coloca na fila
-            var cartasEmbaralhadas = cartas.OrderBy(c => Guid.NewGuid()).ToList();
-            return new Queue<ICartaUsavel>(cartasEmbaralhadas);
-        }
-
 
         //Usa uma carta
         public void UsarCarta(int indice, OInimigo alvo)
@@ -184,7 +175,6 @@ namespace CardsAndDragons
                 Mao.RemoveAt(indice);
             }
         }
-
 
         public void Curar(int cura)
         {
@@ -224,8 +214,9 @@ namespace CardsAndDragons
                 Nivel++;
                 XpAtual -= XpTotal;
                 XpTotal = XpTotal * (Nivel + 1);
-                int pontosXp = 3;
+                int pontosXp = 5;
                 Console.WriteLine($"\nVocê subiu para o nivél {this.Nivel}");
+                this.VidaMax += 5;
                 Console.ReadKey();
                 AtribuirPontosXp(pontosXp);
             }

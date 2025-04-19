@@ -170,6 +170,9 @@ namespace CardsAndDragons.Controllers
                 case "Congelamento":
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     break;
+                case "Silêncio":
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Gray;
                     break;
@@ -181,6 +184,22 @@ namespace CardsAndDragons.Controllers
             foreach (var condicao in inimigo.Condicoes)
             {
                 if (condicao is Congelamento)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public static bool VerificarSilencio(List<ICondicaoTemporaria> condicoes)
+        {
+            foreach (var condicao in condicoes)
+            {
+                if (condicao is Silencio)
                 {
                     return true;
                 }

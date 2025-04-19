@@ -12,6 +12,23 @@ namespace CardsAndDragons.ClassesDasCartas
 {
     public static class FabricaDeCartas
     {
+        public static ICartaUsavel CriarSilenciar()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Silenciar",
+                Descricao = "Silencia o alvo, impedindo ele de usar sua habilidade na proxima rodada.",
+                CustoMana = 20,
+                Modelo = GerarModeloBasico("B"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    CondicaoController.AplicarOuAtualizarCondicao(new Silencio(), alvo.Condicoes);
+                    Console.WriteLine($"{alvo.Nome} sofreu 15 de dano!");
+                }
+            };
+        }
+
         public static ICartaUsavel CriarAtaqueMagico()
         {
             return new CartaGenerica

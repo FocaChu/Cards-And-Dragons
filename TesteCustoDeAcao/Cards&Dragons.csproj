@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Batalha.cs" />
     <Compile Include="ClassesCondicoes\BonusDeDano.cs" />
+    <Compile Include="ClassesCondicoes\Silencio.cs" />
     <Compile Include="ClassesCondicoes\EscudoDeDano.cs" />
     <Compile Include="ClassesCondicoes\ICondicaoEmpilhavel.cs" />
     <Compile Include="ClassesCondicoes\RedutorDeDano.cs" />
