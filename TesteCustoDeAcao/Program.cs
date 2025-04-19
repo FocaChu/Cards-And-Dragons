@@ -352,31 +352,34 @@ namespace CardsAndDragons
 
             bool acabarJogo = false;
             bool acabarBatalha = false;
-            bool primeiroTurno = true;
+            bool acabarRodada = false;
+            bool primeiroRodada = true;
 
             //começa o jogo
             while (!acabarJogo)
             {
+                inimigosDaFase.Clear();
+
                 //define os inimigos da batalha com base na dificuldade atual
-                GerarOsInimigos(dificuldadeAtual);
+                inimigosDaFase = BatalhaController.GerarOsInimigos(dificuldadeAtual);
 
                 //faz a classe batalha recebendo os inimigos e o jogador
                 Batalha batalha = new Batalha(oJogador[jogadorAtual], inimigosDaFase);
 
                 //permite que outra batalha começe
                 acabarBatalha = false;
-                primeiroTurno = true;
+                primeiroRodada = true;
 
                 //começa uma batalha
                 while (!acabarBatalha)
                 {
                     Console.CursorVisible = false;
 
-                    if (primeiroTurno)
+                    if (primeiroRodada)
                     {
                         batalha.jogador.Condicoes.Clear();
                         BatalhaController.NovaRodada(batalha);
-                        primeiroTurno = false;
+                        primeiroRodada = false;
                     }
 
                     //Mostra os inimigos ao mesmo tempo que deixa escolher uma ação
@@ -395,66 +398,31 @@ namespace CardsAndDragons
 
                         case 3:
                             BatalhaController.AcaoPassarTurno(batalha);
-
-                            Console.ReadKey();
-
-                            int resultadoRodada = BatalhaController.VerificarResultadoRodada(batalha);
-
-                            switch (resultadoRodada)
-                            {
-                                case 1:
-                                    estadoAtual = EstadoDoJogo.Derrota;
-                                    break;
-
-                                case 2:
-                                    acabarBatalha = true;
-                                    break;
-
-                                case 3:
-                                    BatalhaController.NovaRodada(batalha);
-                                    break;
-                            }
-
+                            acabarRodada = true;
                             break;
                     }
                     Console.ReadKey();
 
+                    int resultadoRodada = BatalhaController.VerificarResultadoRodada(batalha);
 
+                    switch (resultadoRodada)
+                    {
+                        case 1:
+                            estadoAtual = EstadoDoJogo.Derrota;
+                            acabarBatalha = true;
+                            acabarJogo = true;
+                            break;
 
+                        case 2:
+                            acabarBatalha = true;
+                            break;
+
+                        case 3:
+                            if (acabarRodada) BatalhaController.NovaRodada(batalha);
+                            acabarRodada = false;
+                            break;
+                    }
                 }
-
-            }
-        }
-        
-
-        static void GerarOsInimigos(int dificuldade)
-        {
-            inimigosDaFase.Clear();
-            Random rng = new Random();
-
-            var tiposDeInimigos = InimigoRPGAjudante.ObterTiposDeInimigosDisponiveis();
-
-            // Filtrar inimigos com base na dificuldade
-            var inimigosValidos = tiposDeInimigos
-                .Select(t => (InimigoRPG)Activator.CreateInstance(t))
-                .Where(inimigo => inimigo.Dificuldade < dificuldade && inimigo.Dificuldade > (dificuldade / 4))
-                .ToList();
-
-            int chance = rng.Next(100);
-            //faz o rng de inimigos aqui
-            int quantidadeInimigosNaFase = (chance < 60) ? 3 : 4;
-
-            for (int i = 0; i < quantidadeInimigosNaFase; i++)
-            {
-                if (inimigosValidos.Count == 0) break;
-
-                int indice = rng.Next(inimigosValidos.Count);
-
-                // cria inimigos aqui
-                Type tipo = inimigosValidos[indice].GetType();
-                InimigoRPG novoInimigo = (InimigoRPG)Activator.CreateInstance(tipo);
-
-                inimigosDaFase.Add(new OInimigo(novoInimigo));
             }
         }
 

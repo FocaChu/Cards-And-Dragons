@@ -12,6 +12,39 @@ namespace CardsAndDragons.ClassesDasCartas
 {
     public static class FabricaDeCartas
     {
+        public static ICartaUsavel CriarAtaqueMagico()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Ataque Magico",
+                Descricao = "Lança um ataque magico no alvo causando 15 de dano.",
+                CustoMana = 20,
+                Modelo = GerarModeloBasico("B"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    alvo.SofrerDano(15);
+                    Console.WriteLine($"{alvo.Nome} sofreu 15 de dano!");
+                }
+            };
+        }
+
+        public static ICartaUsavel CriarFlechada()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Flechada",
+                Descricao = "Lança uma flecha no alvo causando 15 de dano.",
+                CustoStamina = 20,
+                Modelo = GerarModeloBasico("9"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    alvo.SofrerDano(15);
+                    Console.WriteLine($"{alvo.Nome} sofreu 15 de dano!");
+                }
+            };
+        }
 
         public static ICartaUsavel CriarFeiticoDeGelo()
         {
@@ -36,13 +69,12 @@ namespace CardsAndDragons.ClassesDasCartas
                 Nome = "Flecha Afiada",
                 Descricao = "Uma flecha de ponta afiada que pode Cortas inimigos.",
                 CustoStamina = 35,
-                CustoMana = 10,
                 Modelo = GerarModeloBasico("7"),
                 EParaInimigo = true,
                 EfeitoContraInimigo = (jogador, alvo) =>
                 {
                     alvo.SofrerDano(10);
-                    CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(29, 2), alvo.Condicoes);
+                    CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(2, 2), alvo.Condicoes);
                     Console.WriteLine($"{alvo.Nome} sofre 5 de dano e foi cortado!");
                 }
             };
@@ -72,7 +104,7 @@ namespace CardsAndDragons.ClassesDasCartas
             {
                 Nome = "Maldição Amarga",
                 Descricao = "Causa 5 de dano e aplica 3 de Maldição ao inimigo.",
-                CustoMana = 10,
+                CustoMana = 20,
                 Modelo = GerarModeloBasico("5"),
                 EParaInimigo = true,
                 EfeitoContraInimigo = (jogador, alvo) =>
@@ -90,7 +122,7 @@ namespace CardsAndDragons.ClassesDasCartas
             {
                 Nome = "Fleca Envenenada",
                 Descricao = "Causa 5 de dano e aplica 3 de Veneno por 3 turnos",
-                CustoStamina = 35,
+                CustoStamina = 30,
                 CustoMana = 10,
                 Modelo = GerarModeloBasico("4"),
                 EParaInimigo = true,

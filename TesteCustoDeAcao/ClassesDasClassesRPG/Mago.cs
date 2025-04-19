@@ -24,8 +24,9 @@ namespace CardsAndDragons.ClassesClasses
         {
             return new List<ICartaUsavel>
     {
-        FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(),
-        FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(),
+        FabricaDeCartas.CriarAtaqueMagico(), FabricaDeCartas.CriarAtaqueMagico(), FabricaDeCartas.CriarAtaqueMagico(), FabricaDeCartas.CriarAtaqueMagico(),
+        FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(),
+        FabricaDeCartas.CriarPocaoDeCura(), FabricaDeCartas.CriarPocaoDeCura(),
         FabricaDeCartas.CriarPraga(),
         FabricaDeCartas.CriarFeiticoDeGelo()
     };

@@ -27,7 +27,7 @@ namespace CardsAndDragons.ClassesClasses
     {
         FabricaDeCartas.CriarEspadada(), FabricaDeCartas.CriarEspadada(), FabricaDeCartas.CriarEspadada(), FabricaDeCartas.CriarEspadada(),
         FabricaDeCartas.CriarPocaoDeCura(), FabricaDeCartas.CriarPocaoDeCura(),FabricaDeCartas.CriarPocaoDeCura(),
-        FabricaDeCartas.CriarGolpePesado()
+        FabricaDeCartas.CriarGolpePesado(), FabricaDeCartas.CriarGolpePesado()
     };
         } 
 

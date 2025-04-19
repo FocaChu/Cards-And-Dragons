@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CardsAndDragons.ClassesCondicoes;
 using CardsAndDragons.Controllers;
+using CardsAndDragons.Inimigos;
 using TesteCustoDeAcao;
 
 namespace CardsAndDragons
@@ -20,11 +21,11 @@ namespace CardsAndDragons
             while (!selecionado)
             {
                 Console.Clear();
-                
+
                 MostrarAlvos(batalha, option);
 
                 Console.ResetColor();
-                Console.WriteLine("\n" +@"Use ← → para navegar | ENTER para selecionar." + "\n");
+                Console.WriteLine("\n" + @"Use ← → para navegar | ENTER para selecionar." + "\n");
 
                 ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -62,7 +63,7 @@ namespace CardsAndDragons
 
             return option;
         }
-        
+
         public static int MenuBatalha(Batalha batalha)
         {
             int acao = 1;
@@ -136,6 +137,39 @@ namespace CardsAndDragons
                 }
                 Console.WriteLine();
             }
+        }
+
+        public static List<OInimigo> GerarOsInimigos(int dificuldade)
+        {
+            List <OInimigo> inimigosDaFase = new List<OInimigo>();
+            Random rng = new Random();
+
+            var tiposDeInimigos = InimigoRPGAjudante.ObterTiposDeInimigosDisponiveis();
+
+            // Filtrar inimigos com base na dificuldade
+            var inimigosValidos = tiposDeInimigos
+                .Select(t => (InimigoRPG)Activator.CreateInstance(t))
+                .Where(inimigo => inimigo.Dificuldade < dificuldade && inimigo.Dificuldade > (dificuldade / 4))
+                .ToList();
+
+            int chance = rng.Next(100);
+            //faz o rng de inimigos aqui
+            int quantidadeInimigosNaFase = (chance < 60) ? 3 : 4;
+
+            for (int i = 0; i < quantidadeInimigosNaFase; i++)
+            {
+                if (inimigosValidos.Count == 0) break;
+
+                int indice = rng.Next(inimigosValidos.Count);
+
+                // cria inimigos aqui
+                Type tipo = inimigosValidos[indice].GetType();
+                InimigoRPG novoInimigo = (InimigoRPG)Activator.CreateInstance(tipo);
+
+                inimigosDaFase.Add(new OInimigo(novoInimigo));
+            }
+
+            return inimigosDaFase;
         }
 
         public static void AcaoUsarCarta(Batalha batalha)
@@ -213,30 +247,6 @@ namespace CardsAndDragons
             PersonagemController.RestaurarJogador(batalha.jogador);
 
         }
-
-        public static void AplicarOuAtualizarCondicao(ICondicaoTemporaria novaCondicao, List<ICondicaoTemporaria> condicoes)
-        {
-            var existente = condicoes.FirstOrDefault(c => c.GetType() == novaCondicao.GetType());
-
-            if (existente == null)
-            {
-                condicoes.Add(novaCondicao);
-            }
-            else
-            {
-                // Se for veneno, cast e atualiza os dados
-                if (existente is Veneno vExistente && novaCondicao is Veneno vNova)
-                {
-                    vExistente.Nivel += vNova.Nivel;
-                    vExistente.Duracao = Math.Max(vExistente.Duracao, vNova.Duracao);
-                }
-
-                
-                // Repete esse padrão para Sangramento, Maldicao, etc se quiser personalizar
-            }
-        }
-
-
 
     }
 }
