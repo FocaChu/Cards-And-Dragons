@@ -21,7 +21,7 @@ namespace CardsAndDragons
 
         public abstract string DescricaoClasse { get; }
 
-        public abstract List<ICartaUsavel> BaralhoClasse { get; }
+        public abstract List<ICartaUsavel> GetCartasIniciais();
     }
 
     /* 

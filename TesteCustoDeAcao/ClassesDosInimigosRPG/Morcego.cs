@@ -19,7 +19,7 @@ namespace CardsAndDragons
         public override string Nome => "Morcego";
         public override List<string> Modelo => new List<string>()
         {
-            //1234567890123456789012345 = 25
+            
             @"                         ", //1 
             @"      /\         /\      ", //2
             @"     /  \ (\_/) /  \     ", //3

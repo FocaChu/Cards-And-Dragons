@@ -9,34 +9,34 @@ using NAudio.Wave;
 
 namespace CardsAndDragons
 {
-    public class Slime : InimigoRPG
+    public class Esqueleto : InimigoRPG
     {
-        public override int VidaMax => 50;
+        public override int VidaMax => 30;
         public int VidaAtual { get; set; }
-        public override int DanoBase => 5;
+        public override int DanoBase => 10;
         public override int Dificuldade => 1;
-        public override string Nome => "Slime";
+        public override string Nome => "Esqueleto";
         public override List<string> Modelo => new List<string>()
         {
-            //12345678901234567890123  = 23
-            @"                       ", //1
-            @"                       ", //2
-            @"       XXXXXXXXX       ", //3
-            @"     XXX       XXX     ", //4
-            @"    XX           XX    ", //5
-            @"    X  __     __  X    ", //6
-            @"    X    ■   ■    X    ", //7
-            @"    XX           XX    ", //8
-            @"      XXXXXXXXXXX      ", //9
-            @"                       ", //10
-            // preencher 10 linhas no total
-};
+            //1234567890123456789012345 = 25
+            @"           ___           ", //1 
+            @"          (o.o)          ", //2
+            @"          _|=|_          ", //3
+            @"        / .=|=. \        ", //4
+            @"        \ .=|=. /        ", //5
+            @"        (:(_=_):)        ", //6
+            @"          || ||          ", //7
+            @"          () ()          ", //8
+            @"          || ||          ", //9
+            @"         ==' '==         ", //10
+             // preencher 10 linhas no total
+        }; 
 
-        public override int CooldownHabilidade => 4; // a cada 3 rodadas usa habilidade
+        public override int CooldownHabilidade => 3; // a cada 3 rodadas usa habilidade
 
         public override void Atacar(Personagem jogador)
         {
-            //string LocalDoAudio = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audios", "slime Ataque.mp3");
+            //string LocalDoAudio = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audios", "atack esqueletoAudio.mp3");
             ////lee o audio
             //var somAtackEsqueleto = new AudioFileReader(LocalDoAudio);
             //// cria o reprodutor de audio
@@ -52,9 +52,9 @@ namespace CardsAndDragons
         {
             return rodadaAtual % CooldownHabilidade == 0;
         }
-       public override void UsarHabilidade(Personagem jogador)
+        public override void UsarHabilidade(Personagem jogador)
         {
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano crítico!");
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano critico!");
             jogador.VidaAtual = jogador.VidaAtual - (this.DanoBase * 2);
         }
 

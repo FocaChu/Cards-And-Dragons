@@ -23,7 +23,7 @@ namespace CardsAndDragons
     Você não precisa criar um objeto dela pra usar dentro do codigo
     Ex "ClasseHelper.ObterTodasAsClassesDisponiveis();" já funciona direto
     */
-    public static class ClasseHelper
+    public static class ClasseRPGAjudante
     {
         public static List<ClasseRPG> ObterTodasAsClassesDisponiveis()
         {

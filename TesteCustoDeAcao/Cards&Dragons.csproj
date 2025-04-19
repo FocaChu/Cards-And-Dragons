@@ -77,40 +77,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Batalha.cs" />
-    <Compile Include="BatalhaController.cs" />
-    <Compile Include="ClassesCartas\CartaGenerica.cs" />
-    <Compile Include="ClassesCartas\CartaHelper.cs" />
-    <Compile Include="ClassesCartas\FacaEnvenenada.cs" />
-    <Compile Include="ClassesClasses\Arqueiro.cs" />
-    <Compile Include="ClassesClasses\ClasseHelper.cs" />
-    <Compile Include="ClassesClasses\ClasseRPG.cs" />
-    <Compile Include="ClassesClasses\Guerreiro.cs" />
-    <Compile Include="ClassesClasses\Mago.cs" />
+    <Compile Include="ClassesCondicoes\BonusDeDano.cs" />
+    <Compile Include="ClassesCondicoes\EscudoDeDano.cs" />
+    <Compile Include="ClassesCondicoes\RedutorDeDano.cs" />
+    <Compile Include="ClassesDasCartas\FabricaDeCartas.cs" />
+    <Compile Include="Controllers\BatalhaController.cs" />
+    <Compile Include="ClassesDasCartas\CartaGenerica.cs" />
+    <Compile Include="ClassesDasClassesRPG\Arqueiro.cs" />
+    <Compile Include="ClassesAjudantes\ClasseRPGAjudante.cs" />
+    <Compile Include="ClassesDasClassesRPG\ClasseRPG.cs" />
+    <Compile Include="ClassesDasClassesRPG\Guerreiro.cs" />
+    <Compile Include="ClassesDasClassesRPG\Mago.cs" />
     <Compile Include="ClassesCondicoes\Maldicao.cs" />
     <Compile Include="ClassesCondicoes\Sangramento.cs" />
     <Compile Include="ClassesCondicoes\ICondicaoTemporaria.cs" />
     <Compile Include="ClassesCondicoes\Veneno.cs" />
-    <Compile Include="ClassesEspecies\Anao.cs" />
-    <Compile Include="ClassesEspecies\Elfo.cs" />
-    <Compile Include="ClassesEspecies\Vampiro.cs" />
-    <Compile Include="ClassesEspecies\EspecieHelper.cs" />
-    <Compile Include="ClassesEspecies\EspecieRPG.cs" />
-    <Compile Include="ClassesEspecies\Humano.cs" />
-    <Compile Include="ClassesInimigos\InimigoRPG.cs" />
-    <Compile Include="ClassesInimigos\InimigoHelper.cs" />
-    <Compile Include="ClassesInimigos\Esqueleto.cs" />
-    <Compile Include="ClassesInimigos\Morcego.cs" />
-    <Compile Include="ClassesCartas\ICartaUsavel.cs" />
-    <Compile Include="ClassesInimigos\OInimigo.cs" />
+    <Compile Include="ClassesDasEspeciesRPG\Anao.cs" />
+    <Compile Include="ClassesDasEspeciesRPG\Elfo.cs" />
+    <Compile Include="ClassesDasEspeciesRPG\Vampiro.cs" />
+    <Compile Include="ClassesAjudantes\EspecieRPGAjudante.cs" />
+    <Compile Include="ClassesDasEspeciesRPG\EspecieRPG.cs" />
+    <Compile Include="ClassesDasEspeciesRPG\Humano.cs" />
+    <Compile Include="ClassesDosInimigosRPG\InimigoRPG.cs" />
+    <Compile Include="ClassesAjudantes\InimigoRPGAjudante.cs" />
+    <Compile Include="ClassesDosInimigosRPG\Esqueleto.cs" />
+    <Compile Include="ClassesDosInimigosRPG\Morcego.cs" />
+    <Compile Include="ClassesDasCartas\ICartaUsavel.cs" />
+    <Compile Include="ClassesDosInimigosRPG\OInimigo.cs" />
+    <Compile Include="Controllers\InimigoController.cs" />
     <Compile Include="Personagem.cs" />
-    <Compile Include="PersonagemController.cs" />
+    <Compile Include="Controllers\PersonagemController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ClassesInimigos\Slime.cs" />
+    <Compile Include="ClassesDosInimigosRPG\Slime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

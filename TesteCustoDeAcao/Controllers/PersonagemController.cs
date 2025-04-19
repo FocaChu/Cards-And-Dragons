@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCondicoes;
 using TesteCustoDeAcao;
 
 namespace CardsAndDragons
 {
     public static class PersonagemController
     {
+
+        #region Cria o Personagem
         public static EspecieRPG SelecionarEspecie()
         {
             //mostra todas as especies
-            var especiesDisponiveis = EspecieHelper.ObterTodasAsEspeciesDisponiveis();
+            var especiesDisponiveis = EspecieRPGAjudante.ObterTodasAsEspeciesDisponiveis();
 
             //variaveis que fazem a seleção funcionar
             int opcaoSelecionada = 0;
@@ -104,7 +107,7 @@ namespace CardsAndDragons
         public static ClasseRPG EscolherClasse()
         {
             //Mostra todas as classes
-            var classesDisponiveis = ClasseHelper.ObterTodasAsClassesDisponiveis();
+            var classesDisponiveis = ClasseRPGAjudante.ObterTodasAsClassesDisponiveis();
 
             //variaveis que fazem a seleção funcionar
             int opcaoSelecionada = 0;
@@ -206,56 +209,234 @@ namespace CardsAndDragons
             return jogador;
         }
 
-        public static void ExibirJogador(Personagem jogador)
+        #endregion
+
+        #region Exibi o Personagem, suas Cartas e seus Itens
+
+        //Mostrra o jogador e seus status, opcionalmente seu baralho
+        public static void ExibirJogador(Personagem jogador, bool exibirBaralho)
         {
             Console.WriteLine($"\n{jogador}\n");
 
+            if(exibirBaralho) MostrarBaralhoCompleto(jogador);
+            
+        }
+
+        //Mostra todas as cartas que tem no baralho do jogador
+        public static void MostrarBaralhoCompleto(Personagem jogador)
+        {
             for (int linha = 0; linha < 10; linha++)
             {
-
                 for (int i = 0; i < jogador.BaralhoCompleto.Count; i++)
                 {
-                    // Define a cor branca
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Gray;
 
-                    // Pega a linha do modelo atual da carta
-                    string linhaModelo = jogador.BaralhoCompleto[i].Modelo[linha];
+                    Console.Write(jogador.BaralhoCompleto[i].Modelo[linha]);
 
-                    Console.Write(linhaModelo);
                 }
-
                 Console.WriteLine();
-                // pula pra próxima linha do desenho
             }
         }
 
-        public static void MostrarCartasNaMao(Personagem jogador)
+        //Mostra todas aws cartas que o jogador tem na mão
+        public static void MostrarCartasNaMao(Personagem jogador, int option)
         {
             Console.Clear();
             Console.WriteLine($"\n===== Cartas de {jogador.Nome} =====\n");
 
-            if (jogador.BaralhoCompleto.Count == 0)
+            if (jogador.Mao.Count == 0)
             {
-                Console.WriteLine("Você não tem cartas.");
+                Console.WriteLine("\nVocê não tem cartas.\n");
                 return;
             }
-
-            int index = 1;
-            foreach (var carta in jogador.BaralhoCompleto)
+            for (int linha = 0; linha < 10; linha++)
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"{index++} - {carta.Nome}");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"  {carta.Descricao}");
-                Console.WriteLine($"  Custo: Vida {carta.CustoVida}, Mana {carta.CustoMana}, Stamina {carta.CustoStamina}, Ouro {carta.CustoOuro}\n");
-            }
+                for (int i = 0; i < jogador.Mao.Count; i++)
+                {
+                    Console.ForegroundColor = (i == option) ? ConsoleColor.Red : ConsoleColor.Gray;
 
-            Console.ResetColor();
-            Console.WriteLine("Pressione qualquer tecla para voltar.");
-            Console.ReadKey();
+                    Console.Write(jogador.Mao[i].Modelo[linha]);
+
+                }
+                Console.WriteLine();
+            }
         }
 
-        
+        #endregion
+
+        #region Gerencia as Cartas do Jogador
+
+        public static void EscolherCartaParaUsar(Personagem jogador, OInimigo inimigoEscolhido)
+        {
+            Console.Clear();
+            Console.WriteLine($"\n===== Cartas na Mão =====\n");
+
+            int option = 0;
+            int escolha = SelecionarCarta(jogador, option);
+
+            if (escolha >= 0)
+            {
+                jogador.UsarCarta(escolha, inimigoEscolhido);
+            }
+            else
+            {
+                Console.WriteLine("\nAção cancelada.");
+                Console.ReadKey();
+            }
+        }
+
+
+        public static int SelecionarCarta(Personagem jogador, int option)
+        {
+            bool selecionado = false;
+            int totalOpcoes = jogador.Mao.Count;
+            bool voltar = false;
+
+            while (!selecionado)
+            {
+                Console.Clear();
+
+                Console.WriteLine("=============   !COMBATE!   =============");
+
+                MostrarCartasNaMao(jogador, option);
+
+                Console.ResetColor();
+                Console.WriteLine("\n" + @"Use ← e → para navegar | ENTER para selecionar e ESC para sair.");
+
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.LeftArrow:
+                        if (option > 0) option--;
+                        break;
+
+                    case ConsoleKey.RightArrow:
+                        if (option < totalOpcoes - 1) option++;
+                        break;
+
+                    case ConsoleKey.Enter:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        Console.WriteLine($"\nVocê selecionou o carta {jogador.Mao[option].Nome}.");
+
+                        Console.WriteLine("\nAperte ENTER para confirmar, qualquer outra tecla para voltar.");
+
+                        if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                        {
+                            selecionado = true;
+                        }
+                        break;
+
+                    case ConsoleKey.Escape:
+                        selecionado = true;
+                        voltar = true;
+                        break;
+                }
+            }
+            if (voltar) return -10;
+            else return option;
+        }
+
+
+        //Compra as cartas pra mão do jogador
+        public static void ComprarCartas(Personagem jogador)
+        {
+            while (jogador.Mao.Count < 7 && jogador.BaralhoCompra.Count > 0)
+            {
+                var cartaComprada = jogador.BaralhoCompra.Dequeue();
+                jogador.Mao.Add(cartaComprada);
+            }
+            if (jogador.BaralhoCompra.Count == 0)
+            {
+                Console.WriteLine("Baralho vazio. Reciclando descarte...");
+                jogador.BaralhoCompra = jogador.EmbaralharCartas(jogador.BaralhoDescarte);
+                jogador.BaralhoDescarte.Clear();
+            }
+
+        }
+
+        public static void RecarregarBaralho(Personagem jogador)
+        {
+            if (jogador.BaralhoDescarte.Count > 0)
+            {
+                Console.WriteLine("Reciclando cartas do baralho...");
+                jogador.BaralhoCompra = jogador.EmbaralharCartas(jogador.BaralhoDescarte);
+                jogador.BaralhoDescarte.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Não há mais cartas para reciclar.");
+            }
+        }
+
+        public static void AdicionarCartaAoBaralho(Personagem jogador, ICartaUsavel carta)
+        {
+            jogador.BaralhoCompleto.Add(carta);
+            jogador.BaralhoCompra = new Queue<ICartaUsavel>(jogador.EmbaralharCartas(jogador.BaralhoCompleto));
+        }
+
+        #endregion
+
+        #region Cuida da condições e da vida do Personagem
+        //Restaura os status do jogador a cada rodada
+        public static void RestaurarJogador(Personagem jogador)
+        {
+            jogador.VidaAtual = jogador.VidaAtual + jogador.Regeneracao;
+            jogador.ManaAtual = jogador.ManaMax;
+            jogador.StaminaAtual = jogador.StaminaMax;
+        }
+
+        public static void AtualizarCondicoes(Personagem jogador)
+        {
+            for (int i = jogador.Condicoes.Count - 1; i >= 0; i--)
+            {
+                var condicao = jogador.Condicoes[i];
+
+                // Muda a cor conforme o tipo da condição
+                DefinirCorDaCondicao(condicao.Nome);
+
+                Console.WriteLine($"{jogador.Nome} sofre os efeitos de {condicao.Nome}!");
+
+                // Aplica o efeito
+                condicao.AplicarEfeito(jogador);
+                condicao.Atualizar();
+
+                if (condicao.Expirou())
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"{jogador.Nome} não está mais afetado por {condicao.Nome}.");
+                    jogador.Condicoes.RemoveAt(i);
+                }
+
+                Console.ResetColor();
+            }
+
+            jogador.BonusDeDano = 0;
+            jogador.RedutorDeDano = 0;
+            jogador.Escudo = 0;
+
+        }
+
+        private static void DefinirCorDaCondicao(string nomeCondicao)
+        {
+            switch (nomeCondicao)
+            {
+                case "Veneno":
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case "Sangramento":
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
+                case "Maldição":
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+            }
+        }
+        #endregion
     }
 }
 

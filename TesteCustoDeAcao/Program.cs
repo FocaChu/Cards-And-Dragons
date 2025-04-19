@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
-using CardsAndDragons.ClassesCartas;
+using CardsAndDragons.ClassesDasCartas;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 using NAudio.Wave;
 using TesteCustoDeAcao;
@@ -229,7 +230,7 @@ namespace CardsAndDragons
 
                 if (!string.IsNullOrEmpty(titulo))
                 {
-                    Console.WriteLine($"\n========== {titulo.ToUpper()} ==========\n");
+                    Console.WriteLine($"\n==========  {titulo.ToUpper()}  ==========\n");
                 }
 
                 Console.ForegroundColor = ConsoleColor.White;
@@ -323,7 +324,7 @@ namespace CardsAndDragons
                     var jogador = PersonagemController.CriarPersonagem(especieEscolhida, classeEscolhida);
                     oJogador.Add(jogador);
 
-                    PersonagemController.ExibirJogador(jogador);
+                    PersonagemController.ExibirJogador(jogador, true);
 
                     estadoAtual = EstadoDoJogo.Jogo;
                     acabar = true;
@@ -373,94 +374,61 @@ namespace CardsAndDragons
 
                     if (primeiroTurno)
                     {
-                            BatalhaController.RecarregarBaralho(batalha);
-                            oJogador[jogadorAtual].ComprarCartas();
+                        batalha.jogador.Condicoes.Clear();
+                        BatalhaController.NovaRodada(batalha);
                         primeiroTurno = false;
                     }
 
-                    Console.WriteLine($"Cartas na mão: {oJogador[jogadorAtual].Mao.Count}");
-                    foreach (var carta in oJogador[jogadorAtual].Mao)
+                    //Mostra os inimigos ao mesmo tempo que deixa escolher uma ação
+                    int acao = BatalhaController.MenuBatalha(batalha);
+
+                    //verifica e efetua a ação
+                    switch (acao)
                     {
-                        Console.WriteLine($" - {carta.Nome}");
+                        case 1:
+                            BatalhaController.AcaoUsarCarta(batalha);
+                            break;
+
+                        case 2:
+                            BatalhaController.AcaoExibir(batalha);
+                            break;
+
+                        case 3:
+                            BatalhaController.AcaoPassarTurno(batalha);
+                            break;
                     }
 
-                    int option = 0;
+                    Console.ReadKey();
 
-                    int escolha = BatalhaController.SelecionarAlvoOuInventario(batalha, option);
+                    int resultadoRodada = BatalhaController.VerificarResultadoRodada(batalha);
 
-                    if (escolha == batalha.Inimigos.Count)
+                    switch (resultadoRodada)
                     {
-                        //Mostra inventário
-                        PersonagemController.ExibirJogador(oJogador[jogadorAtual]);
-                        Console.ReadKey();
-                        continue; // volta pro menu de batalha
-                    }
-                    else
-                    {
-                        var inimigoEscolhido = batalha.Inimigos[escolha];
+                        case 1:
+                            estadoAtual = EstadoDoJogo.Derrota;
+                            break;
 
-                        string[] opcoesCombate = { "Atacar", "Analisar", "Voltar", "Passar Turno" };
-                        int acao = MostrarMenuSelecao(false, "Escolha sua Ação!", opcoesCombate);
+                        case 2:
+                            acabarBatalha = true;
+                            break;
 
-                        switch (acao)
-                        {
-                            case 1:
-                                batalha.EscolherCartaParaUsar(inimigoEscolhido);
-                                batalha.InimigoMorreu();
-                                break;
-                            case 2:
-                                batalha.ExibirInimigo(inimigoEscolhido);
-                                break;
-                            case 3:
-                                Console.WriteLine("Voltando...");
-                                break;
-                            case 4:
-                                batalha.ChecapeInimigos();
-                                batalha.TurnoInimigos();
-                                if (batalha.jogador.BaralhoCompra.Count == 0)
-                                {
-                                    BatalhaController.RecarregarBaralho(batalha);
-                                }
-                                oJogador[jogadorAtual].ComprarCartas();
-                                break;
-                        }
-                        Console.ReadKey();
+                        case 3:
+                            BatalhaController.NovaRodada(batalha);
+                            break;
                     }
 
-                    // Verifica se a batalha terminou
-                    if (batalha.BatalhaTerminou())
-                    {
-                        acabarBatalha = true;
-
-                        Console.Clear();
-                        if (oJogador[jogadorAtual].VidaAtual <= 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Você morreu!");
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Vitória!");
-                        }
-
-                        Console.ResetColor();
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        batalha.RestaurarJogador();
-                    }
                 }
+
             }
         }
+        
 
         static void GerarOsInimigos(int dificuldade)
         {
             inimigosDaFase.Clear();
             Random rng = new Random();
 
-            var tiposDeInimigos = InimigoHelper.ObterTiposDeInimigosDisponiveis();
+            var tiposDeInimigos = InimigoRPGAjudante.ObterTiposDeInimigosDisponiveis();
 
             // Filtrar inimigos com base na dificuldade
             var inimigosValidos = tiposDeInimigos

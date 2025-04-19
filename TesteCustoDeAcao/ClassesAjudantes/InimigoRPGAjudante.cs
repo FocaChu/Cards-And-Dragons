@@ -8,7 +8,7 @@ using CardsAndDragons.Inimigos;
 
 namespace CardsAndDragons
 {
-    public static class InimigoHelper
+    public static class InimigoRPGAjudante
     {
 
      /*

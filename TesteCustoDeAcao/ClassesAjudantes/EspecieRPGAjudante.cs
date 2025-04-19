@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CardsAndDragons
 {
-    public static class EspecieHelper
+    public static class EspecieRPGAjudante
     {
     /*
     

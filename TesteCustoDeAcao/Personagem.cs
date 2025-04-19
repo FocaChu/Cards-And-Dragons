@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using CardsAndDragons.ClassesCartas;
+using CardsAndDragons.ClassesDasCartas;
 using CardsAndDragons.ClassesCondicoes;
 using CardsAndDragons.Inimigos;
 using NAudio.CoreAudioApi;
@@ -45,9 +45,15 @@ namespace CardsAndDragons
         public int StaminaMax { get; set; }
 
         public double XpAtual { get; set; }
+
         public double XpTotal { get; set; }
 
         public int Nivel { get; set; }
+
+        // Bônus temporários de combate
+        public int Escudo { get; set; } 
+        public int RedutorDeDano { get; set; } 
+        public int BonusDeDano { get; set; } 
 
         //Status "atuais" usados no codigo
         private int vidaAtual;
@@ -106,54 +112,32 @@ namespace CardsAndDragons
             this.Classe = classe;
 
             this.Ouros = (this.Especie.NomeEspecie == "Anão") ? 150 : 100;
-
             this.Regeneracao = (this.Especie.NomeEspecie == "Vampiro") ? 1 : 0;
 
             this.Nivel = 1;
             this.XpTotal = 100;
 
-            // Status máximos
             this.VidaMax = Classe.VidaMax + 100000;
             this.ManaMax = Classe.ManaMax;
             this.StaminaMax = Classe.StaminaMax;
 
-            // Define os status atuais no máximo ao criar o Personagem
-            this.VidaAtual = classe.VidaMax + 100000;
-            this.ManaAtual = classe.ManaMax;
-            this.StaminaAtual = classe.StaminaMax;
+            this.VidaAtual = this.VidaMax;
+            this.ManaAtual = this.ManaMax;
+            this.StaminaAtual = this.StaminaMax;
 
-            this.BaralhoCompleto = new List<ICartaUsavel>
-            {
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada(),
-                new FacaEnvenenada()
-            };
+            this.Escudo = 0;
+            this.BonusDeDano = 0;
+            this.RedutorDeDano = 0;
+
+            // Adiciona o deck da classe ao baralho completo
+            this.BaralhoCompleto = new List<ICartaUsavel>(classe.GetCartasIniciais());
+
+            // Embaralha o baralho completo e define como baralho de compra
             this.BaralhoCompra = new Queue<ICartaUsavel>(EmbaralharCartas(this.BaralhoCompleto));
         }
 
-        public Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
-        {
-            // Embaralha a lista de cartas e coloca na fila
-            var cartasEmbaralhadas = cartas.OrderBy(c => Guid.NewGuid()).ToList();
-            return new Queue<ICartaUsavel>(cartasEmbaralhadas);
-        }
 
-        public void ComprarCartas()
-        {
-            while (this.Mao.Count < 7 && this.BaralhoCompra.Count > 0)
-            {
-                var cartaComprada = this.BaralhoCompra.Dequeue();
-                this.Mao.Add(cartaComprada);
-            }
-        }
-
+        //Faz com que mostre os status do personagem ao ser chamado
         public override string ToString()
         {
             return $"\nNome: {this.Nome}; " +
@@ -165,76 +149,49 @@ namespace CardsAndDragons
                    $"\nOuro: {this.Ouro}";
         }
 
-        public void Curar(int curaRecebida)
+        //embaralha as cartas do jogador
+        public Queue<ICartaUsavel> EmbaralharCartas(List<ICartaUsavel> cartas)
         {
-            this.VidaAtual = this.VidaAtual + curaRecebida;
+            // Embaralha a lista de cartas e coloca na fila
+            var cartasEmbaralhadas = cartas.OrderBy(c => Guid.NewGuid()).ToList();
+            return new Queue<ICartaUsavel>(cartasEmbaralhadas);
         }
 
-        public void AtualizarCondicoes()
-        {
-            for (int i = Condicoes.Count - 1; i >= 0; i--)
-            {
-                var condicao = Condicoes[i];
 
-                // Muda a cor conforme o tipo da condição
-                DefinirCorDaCondicao(condicao.Nome);
-
-                Console.WriteLine($"{Nome} sofre os efeitos de {condicao.Nome}!");
-
-                // Aplica o efeito
-                condicao.AplicarEfeito(this);
-                condicao.Atualizar();
-
-                if (condicao.Expirou())
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{Nome} não está mais afetado por {condicao.Nome}.");
-                    Condicoes.RemoveAt(i);
-                }
-
-                Console.ResetColor();
-            }
-        }
-
-        private void DefinirCorDaCondicao(string nomeCondicao)
-        {
-            switch (nomeCondicao)
-            {
-                case "Veneno":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
-                case "Sangramento":
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    break;
-                case "Maldição":
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-            }
-        }
-
+        //Usa uma carta
         public void UsarCarta(int indice, OInimigo alvo)
         {
-            if (indice >= 0 && indice < Mao.Count)
-            {
-                var carta = Mao[indice];
+            if (indice < 0 || indice >= Mao.Count) return;
 
-                // Aplica efeitos
-                carta.Usar(this, alvo);
+            var carta = Mao[indice];
+            carta.Usar(this, alvo); // Se alvo for null, funciona do mesmo jeito
 
-                // Remove da mão
-                Mao.RemoveAt(indice);
-
-                // Adiciona ao descarte
-                BaralhoDescarte.Add(carta);
-            }
+            Mao.RemoveAt(indice); // Remove da mão
+            BaralhoDescarte.Add(carta); // Vai pra pilha de descarte
         }
 
-        public void ComprarCartasExtras(int qtdCartas)
-        {
 
+        public void Curar(int cura)
+        {
+            this.VidaAtual = this.VidaAtual + cura;
+        }
+
+        public void ReceberDano(int dano)
+        {
+            int danoFinal = dano - RedutorDeDano;
+
+            if (Escudo > 0)
+            {
+                int danoAbsorvido = Math.Min(danoFinal, Escudo);
+                danoFinal -= danoAbsorvido;
+                Escudo -= danoAbsorvido;
+                Console.WriteLine($"{Nome} absorveu {danoAbsorvido} de dano com o escudo!");
+            }
+
+            danoFinal = Math.Max(danoFinal, 0);
+            VidaAtual -= danoFinal;
+
+            Console.WriteLine($"{Nome} recebeu {danoFinal} de dano!");
         }
 
         public void ContabilizarXp(OInimigo inimigo)
