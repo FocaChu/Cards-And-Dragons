@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardsAndDragons.ClassesCondicoes;
+using CardsAndDragons.Controllers;
 using TesteCustoDeAcao;
 
 namespace CardsAndDragons
@@ -214,11 +215,13 @@ namespace CardsAndDragons
         #region Exibi o Personagem, suas Cartas e seus Itens
 
         //Mostrra o jogador e seus status, opcionalmente seu baralho
-        public static void ExibirJogador(Personagem jogador, bool exibirBaralho)
+        public static void ExibirJogador(Personagem jogador, bool exibirCondicoes, bool exibirBaralho)
         {
             Console.WriteLine($"\n{jogador}\n");
 
-            if(exibirBaralho) MostrarBaralhoCompleto(jogador);
+            if (exibirCondicoes) CondicaoController.ExibirCondicoes(jogador);
+
+            if (exibirBaralho) MostrarBaralhoCompleto(jogador);
             
         }
 
@@ -386,55 +389,6 @@ namespace CardsAndDragons
             jogador.StaminaAtual = jogador.StaminaMax;
         }
 
-        public static void AtualizarCondicoes(Personagem jogador)
-        {
-            for (int i = jogador.Condicoes.Count - 1; i >= 0; i--)
-            {
-                var condicao = jogador.Condicoes[i];
-
-                // Muda a cor conforme o tipo da condição
-                DefinirCorDaCondicao(condicao.Nome);
-
-                Console.WriteLine($"{jogador.Nome} sofre os efeitos de {condicao.Nome}!");
-
-                // Aplica o efeito
-                condicao.AplicarEfeito(jogador);
-                condicao.Atualizar();
-
-                if (condicao.Expirou())
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{jogador.Nome} não está mais afetado por {condicao.Nome}.");
-                    jogador.Condicoes.RemoveAt(i);
-                }
-
-                Console.ResetColor();
-            }
-
-            jogador.BonusDeDano = 0;
-            jogador.RedutorDeDano = 0;
-            jogador.Escudo = 0;
-
-        }
-
-        private static void DefinirCorDaCondicao(string nomeCondicao)
-        {
-            switch (nomeCondicao)
-            {
-                case "Veneno":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
-                case "Sangramento":
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    break;
-                case "Maldição":
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-            }
-        }
         #endregion
     }
 }

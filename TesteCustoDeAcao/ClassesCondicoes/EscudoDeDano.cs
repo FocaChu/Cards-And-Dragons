@@ -10,19 +10,26 @@ namespace CardsAndDragons.ClassesCondicoes
     public class EscudoDeDano : ICondicaoTemporaria
     {
         public string Nome => "Escudo";
-        public int Duracao { get; set; }
-        public int ValorEscudo { get; set; }
 
-        public EscudoDeDano(int valor, int duracao)
+        public int Nivel { get; set; }
+
+        public int Duracao { get; set; }
+
+        public EscudoDeDano(int nivel, int duracao)
         {
-            ValorEscudo = valor;
+            Nivel = nivel;
             Duracao = duracao;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Nome} Nível: {this.Nivel} / Duração: {this.Duracao}";
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            jogador.Escudo += ValorEscudo;
-            Console.WriteLine($"{jogador.Nome} ganha um escudo de {ValorEscudo}!");
+            jogador.Escudo += Nivel;
+            Console.WriteLine($"{jogador.Nome} ganha um escudo de {Nivel}!");
         }
 
         public void AplicarEfeito(OInimigo inimigo) { }

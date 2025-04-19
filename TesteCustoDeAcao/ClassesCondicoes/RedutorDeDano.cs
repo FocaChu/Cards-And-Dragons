@@ -10,19 +10,26 @@ namespace CardsAndDragons.ClassesCondicoes
     public class RedutorDeDano : ICondicaoTemporaria
     {
         public string Nome => "Redutor de Dano";
-        public int Duracao { get; set; }
-        public int Reducao { get; set; }
 
-        public RedutorDeDano(int reducao, int duracao)
+        public int Nivel { get; set; }
+
+        public int Duracao { get; set; }
+
+        public RedutorDeDano(int nivel, int duracao)
         {
-            Reducao = reducao;
+            Nivel = nivel;
             Duracao = duracao;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Nome} Nível: {this.Nivel} / Duração: {this.Duracao}";
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            jogador.RedutorDeDano += Reducao;
-            Console.WriteLine($"{jogador.Nome} reduz {Reducao} de dano recebido!");
+            jogador.RedutorDeDano += Nivel;
+            Console.WriteLine($"{jogador.Nome} reduz {Nivel} de dano recebido!");
         }
 
         public void AplicarEfeito(OInimigo inimigo) { }

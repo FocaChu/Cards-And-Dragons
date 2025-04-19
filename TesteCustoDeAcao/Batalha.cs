@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardsAndDragons;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 
 namespace TesteCustoDeAcao
@@ -32,15 +33,22 @@ namespace TesteCustoDeAcao
 
             foreach (var inimigo in Inimigos)
             {
-                 Console.WriteLine($"\n{inimigo.Nome} está se preparando para agir...\n");
-                System.Threading.Thread.Sleep(300); // Delayzinho dramático
+                Console.WriteLine($"\n{inimigo.Nome} está se preparando para agir...\n");
+                System.Threading.Thread.Sleep(200); // Delayzinho dramático
 
-                inimigo.RealizarTurno(jogador, rodadaAtual);
+                if (!CondicaoController.VerificarCongelamento(inimigo))
+                {
+                    inimigo.RealizarTurno(jogador, rodadaAtual);
 
-                Console.WriteLine();
-                System.Threading.Thread.Sleep(900); // Tempo pra ler o ataque
+                    Console.WriteLine();
+                    System.Threading.Thread.Sleep(800); // Tempo pra ler o ataque
 
-                
+                    CondicaoController.VerificarSangramento(inimigo);
+                }
+                else
+                {
+                    Console.WriteLine($"\n{inimigo.Nome} está congelado e não pode agir...\n");
+                }
             }
             rodadaAtual++;
         }

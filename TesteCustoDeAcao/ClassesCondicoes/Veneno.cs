@@ -10,25 +10,32 @@ namespace CardsAndDragons.ClassesCondicoes
     public class Veneno : ICondicaoEmpilhavel
     {
         public string Nome => "Veneno";
-        public int Duracao { get; set; }
-        public int DanoPorTurno { get; set; }
 
-        public Veneno(int dano, int duracao = 3)
+        public int Nivel { get; set; }
+
+        public int Duracao { get; set; }
+
+        public Veneno(int nivel, int duracao)
         {
-            DanoPorTurno = dano;
+            Nivel = nivel;
             Duracao = duracao;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Nome} Nível: {this.Nivel} / Duração: {this.Duracao}";
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            jogador.VidaAtual -= DanoPorTurno;
-            Console.WriteLine($"{jogador.Nome} sofre {DanoPorTurno} de Veneno!");
+            jogador.VidaAtual -= Nivel;
+            Console.WriteLine($"{jogador.Nome} sofre {Nivel} de Veneno!");
         }
 
         public void AplicarEfeito(OInimigo inimigo)
         {
-            inimigo.VidaAtual -= DanoPorTurno;
-            Console.WriteLine($"{inimigo.Nome} sofre {DanoPorTurno} de Veneno!");
+            inimigo.VidaAtual -= Nivel;
+            Console.WriteLine($"{inimigo.Nome} sofre {Nivel} de Veneno!");
         }
 
         public void Atualizar() => Duracao--;
@@ -40,7 +47,7 @@ namespace CardsAndDragons.ClassesCondicoes
             var novoVeneno = nova as Veneno;
             if (novoVeneno == null) return;
 
-            this.DanoPorTurno += novoVeneno.DanoPorTurno;
+            this.Nivel += novoVeneno.Nivel;
             this.Duracao = Math.Max(this.Duracao, novoVeneno.Duracao);
         }
     }

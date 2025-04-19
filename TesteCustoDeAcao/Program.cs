@@ -324,7 +324,7 @@ namespace CardsAndDragons
                     var jogador = PersonagemController.CriarPersonagem(especieEscolhida, classeEscolhida);
                     oJogador.Add(jogador);
 
-                    PersonagemController.ExibirJogador(jogador, true);
+                    PersonagemController.ExibirJogador(jogador, false, true);
 
                     estadoAtual = EstadoDoJogo.Jogo;
                     acabar = true;

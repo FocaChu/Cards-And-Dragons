@@ -14,7 +14,10 @@ namespace CardsAndDragons.Controllers
 
         public static void ExibirInimigo(OInimigo inimigo)
         {
-            Console.WriteLine(inimigo);
+            Console.WriteLine($"\n{inimigo}\n");
+
+            CondicaoController.ExibirCondicoes(inimigo);
+
             for (int linha = 0; linha < 10; linha++)
             {
                 // Define a cinza 
@@ -30,44 +33,7 @@ namespace CardsAndDragons.Controllers
             }
         }
 
-        //Verifica as condições especiais dos inimigos
-        public static void ChecapeInimigos(Batalha batalha)
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("===========   +CHECAPE+   ===========\n");
-            Console.ResetColor();
-
-            foreach (var inimigo in batalha.Inimigos)
-            {
-                if (inimigo.Condicoes.Count <= 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"\n{inimigo.Nome} não está sendo afetado por condições...");
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine($"\n{inimigo.Nome} está sendo afetado por condições...");
-                }
-
-                Console.ResetColor();
-
-                inimigo.AtualizarCondicoes();
-            }
-            VerificarMorte(batalha);
-        }
-
-        public static void VerificarSangramento(OInimigo inimigo)
-        {
-            foreach (var condicao in inimigo.Condicoes)
-            {
-                if (condicao is Sangramento sangramento)
-                {
-                    sangramento.AplicarEfeito(inimigo);
-                }
-            }
-        }
+        
 
         //public static void VerificarMaldicao(Personagem personagem)
         //{

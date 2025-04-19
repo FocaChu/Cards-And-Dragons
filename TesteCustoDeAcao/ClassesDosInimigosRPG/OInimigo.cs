@@ -50,50 +50,6 @@ namespace TesteCustoDeAcao
             BaseInimigo.UsarHabilidade(jogador);
         }
 
-        public void AtualizarCondicoes()
-        {
-            if(Condicoes.Count > 0)
-            for (int i = Condicoes.Count - 1; i >= 0; i--)
-            {
-                var condicao = Condicoes[i];
-
-                DefinirCorDaCondicao(condicao.Nome);
-
-                Console.WriteLine($"{Nome} sofre os efeitos de {condicao.Nome}!");
-
-                condicao.AplicarEfeito(this);
-                condicao.Atualizar();
-
-                if (condicao.Expirou())
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{Nome} não está mais afetado por {condicao.Nome}.");
-                    Condicoes.RemoveAt(i);
-                }
-
-                Console.ResetColor();
-            }
-        }
-
-        private void DefinirCorDaCondicao(string nomeCondicao)
-        {
-            switch (nomeCondicao)
-            {
-                case "Veneno":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
-                case "Sangramento":
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    break;
-                case "Maldição":
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-            }
-        }
-
         public void RealizarTurno(Personagem jogador, int rodada)
         {
             if (PodeUsarHabilidade(rodada))

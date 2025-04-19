@@ -12,6 +12,23 @@ namespace CardsAndDragons.ClassesDasCartas
 {
     public static class FabricaDeCartas
     {
+
+        public static ICartaUsavel CriarFeiticoDeGelo()
+        {
+            return new CartaGenerica
+            {
+                Nome = "Feitiço de Gelo",
+                Descricao = "Um feitiço gélido que pode congelar um inimigo o impedindo de atacar.",
+                CustoMana = 50,
+                Modelo = GerarModeloBasico("8"),
+                EParaInimigo = true,
+                EfeitoContraInimigo = (jogador, alvo) =>
+                {
+                    CondicaoController.AplicarOuAtualizarCondicao(new Congelamento(), alvo.Condicoes);
+                    Console.WriteLine($"{alvo.Nome} foi congelado!");
+                }
+            };
+        }
         public static ICartaUsavel CriarFlechaAfiada()
         {
             return new CartaGenerica
@@ -24,8 +41,8 @@ namespace CardsAndDragons.ClassesDasCartas
                 EParaInimigo = true,
                 EfeitoContraInimigo = (jogador, alvo) =>
                 {
-                    alvo.SofrerDano(5);
-                    CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(3, 2), alvo.Condicoes);
+                    alvo.SofrerDano(10);
+                    CondicaoController.AplicarOuAtualizarCondicao(new Sangramento(29, 2), alvo.Condicoes);
                     Console.WriteLine($"{alvo.Nome} sofre 5 de dano e foi cortado!");
                 }
             };

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardsAndDragons.ClassesCondicoes;
+using CardsAndDragons.Controllers;
 using CardsAndDragons.Inimigos;
 using NAudio.Wave;
 
@@ -32,7 +34,7 @@ namespace CardsAndDragons
             // preencher 10 linhas no total
 };
 
-        public override int CooldownHabilidade => 4; // a cada 3 rodadas usa habilidade
+        public override int CooldownHabilidade => 4; // a cada 4 rodadas usa habilidade
 
         public override void Atacar(Personagem jogador)
         {
@@ -54,8 +56,9 @@ namespace CardsAndDragons
         }
        public override void UsarHabilidade(Personagem jogador)
         {
-            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano crítico!");
+            Console.WriteLine($"{this.Nome} atacou {jogador.Nome} causando {this.DanoBase} de dano ácido!");
             jogador.VidaAtual = jogador.VidaAtual - (this.DanoBase * 2);
+            CondicaoController.AplicarOuAtualizarCondicao(new Veneno(1, 2), jogador.Condicoes);
         }
 
         public override void RealizarTurno(Personagem jogador, int rodadaAtual)

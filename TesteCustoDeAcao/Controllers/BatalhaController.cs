@@ -167,19 +167,21 @@ namespace CardsAndDragons
             else
             {
                 // Alvo é o próprio jogador
-                PersonagemController.ExibirJogador(batalha.jogador, true);
+                PersonagemController.ExibirJogador(batalha.jogador, true, true);
             }
         }
 
         public static void AcaoPassarTurno(Batalha batalha)
         {
-            InimigoController.ChecapeInimigos(batalha);
+            CondicaoController.Checape(batalha);
 
             Console.ReadKey();
 
             batalha.TurnoInimigos();
 
-            PersonagemController.AtualizarCondicoes(batalha.jogador);
+            InimigoController.VerificarMorte(batalha);
+
+            CondicaoController.Checape(batalha.jogador);
 
         }
 
@@ -225,7 +227,7 @@ namespace CardsAndDragons
                 // Se for veneno, cast e atualiza os dados
                 if (existente is Veneno vExistente && novaCondicao is Veneno vNova)
                 {
-                    vExistente.DanoPorTurno += vNova.DanoPorTurno;
+                    vExistente.Nivel += vNova.Nivel;
                     vExistente.Duracao = Math.Max(vExistente.Duracao, vNova.Duracao);
                 }
 

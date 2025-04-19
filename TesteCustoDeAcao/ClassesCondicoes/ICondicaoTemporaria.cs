@@ -11,6 +11,8 @@ namespace CardsAndDragons.ClassesCondicoes
     {
         string Nome { get; }
 
+        int Nivel { get; set; }
+
         int Duracao { get; set; }
 
         void AplicarEfeito(Personagem jogador);

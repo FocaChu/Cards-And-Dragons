@@ -81,6 +81,7 @@
     <Compile Include="ClassesCondicoes\EscudoDeDano.cs" />
     <Compile Include="ClassesCondicoes\ICondicaoEmpilhavel.cs" />
     <Compile Include="ClassesCondicoes\RedutorDeDano.cs" />
+    <Compile Include="ClassesCondicoes\Congelamento.cs" />
     <Compile Include="ClassesDasCartas\FabricaDeCartas.cs" />
     <Compile Include="Controllers\BatalhaController.cs" />
     <Compile Include="ClassesDasCartas\CartaGenerica.cs" />

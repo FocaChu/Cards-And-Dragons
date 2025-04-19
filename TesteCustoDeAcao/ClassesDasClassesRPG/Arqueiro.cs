@@ -26,6 +26,7 @@ namespace CardsAndDragons.ClassesClasses
     {
         FabricaDeCartas.CriarEspadada(), FabricaDeCartas.CriarEspadada(), FabricaDeCartas.CriarEspadada(),
         FabricaDeCartas.CriarFlechaEnvenenada(), FabricaDeCartas.CriarFlechaEnvenenada(),
+        FabricaDeCartas.CriarFlechaAfiada(), FabricaDeCartas.CriarFlechaAfiada(),
     };
         }
     }

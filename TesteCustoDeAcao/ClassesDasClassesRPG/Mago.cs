@@ -26,7 +26,8 @@ namespace CardsAndDragons.ClassesClasses
     {
         FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(),
         FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(), FabricaDeCartas.CriarMaldicaoAmarga(),
-        FabricaDeCartas.CriarPraga(), 
+        FabricaDeCartas.CriarPraga(),
+        FabricaDeCartas.CriarFeiticoDeGelo()
     };
         }
     }

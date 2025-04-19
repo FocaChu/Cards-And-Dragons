@@ -10,18 +10,25 @@ namespace CardsAndDragons.ClassesCondicoes
     public class Maldicao : ICondicaoEmpilhavel
     {
         public string Nome => "Maldição";
+
+
+        public int Nivel { get; set; }
+
         public int Duracao { get; set; } = int.MaxValue;
 
-        public int ValorExecucao { get; set; }
-
-        public Maldicao(int valor)
+        public Maldicao(int nivel)
         {
-            ValorExecucao = valor;
+            Nivel = nivel;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Nome} Nível: {this.Nivel} / Duração: ???";
         }
 
         public void AplicarEfeito(Personagem jogador)
         {
-            if (jogador.VidaAtual <= ValorExecucao)
+            if (jogador.VidaAtual <= Nivel)
             {
                 jogador.VidaAtual = 0;
                 Console.WriteLine($"{jogador.Nome} foi consumido pela Maldição!");
@@ -30,7 +37,7 @@ namespace CardsAndDragons.ClassesCondicoes
 
         public void AplicarEfeito(OInimigo inimigo)
         {
-            if (inimigo.VidaAtual <= ValorExecucao)
+            if (inimigo.VidaAtual <= Nivel)
             {
                 inimigo.VidaAtual = 0;
                 Console.WriteLine($"{inimigo.Nome} foi consumido pela Maldição!");
@@ -42,7 +49,7 @@ namespace CardsAndDragons.ClassesCondicoes
             var novaMaldicao = nova as Maldicao;
             if (novaMaldicao == null) return;
 
-            this.ValorExecucao += novaMaldicao.ValorExecucao;
+            this.Nivel += novaMaldicao.Nivel;
         }
 
         public void Atualizar() { } // Não faz nada

@@ -7,18 +7,18 @@ using TesteCustoDeAcao;
 
 namespace CardsAndDragons.ClassesCondicoes
 {
-    public class BonusDeDano : ICondicaoTemporaria
+    public class Congelamento : ICondicaoTemporaria
     {
-        public string Nome => "Bônus de Dano";
+        public string Nome => "Congelamento";
 
         public int Nivel { get; set; }
 
         public int Duracao { get; set; }
 
-        public BonusDeDano(int nivel, int duracao)
+        public Congelamento()
         {
-            Nivel = nivel;
-            Duracao = duracao;
+            Nivel = 1;
+            Duracao = 1;
         }
 
         public override string ToString()
@@ -28,18 +28,17 @@ namespace CardsAndDragons.ClassesCondicoes
 
         public void AplicarEfeito(Personagem jogador)
         {
-            jogador.BonusDeDano += Nivel;
-            Console.WriteLine($"{jogador.Nome} recebe +{Nivel} de dano!");
         }
 
-        public void AplicarEfeito(OInimigo inimigo) { } // Não se aplica a inimigo
-
-        public void Atualizar()
+        public void AplicarEfeito(OInimigo inimigo)
         {
-            Duracao--;
+            Console.WriteLine($"{inimigo.Nome} foi congelado!");
         }
+
+        public void Atualizar() => Duracao--;
 
         public bool Expirou() => Duracao <= 0;
     }
+
 
 }
