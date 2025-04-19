@@ -174,6 +174,8 @@ namespace CardsAndDragons
         {
             InimigoController.ChecapeInimigos(batalha);
 
+            Console.ReadKey();
+
             batalha.TurnoInimigos();
 
             PersonagemController.AtualizarCondicoes(batalha.jogador);

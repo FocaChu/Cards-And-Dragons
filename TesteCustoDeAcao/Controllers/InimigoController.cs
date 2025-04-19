@@ -33,14 +33,23 @@ namespace CardsAndDragons.Controllers
         public static void ChecapeInimigos(Batalha batalha)
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("===========   +CHECAPE+   ===========\n");
             Console.ResetColor();
 
             foreach (var inimigo in batalha.Inimigos)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"\n{inimigo.Nome} está sendo afetado por condições...");
+                if (inimigo.Condicoes.Count <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"\n{inimigo.Nome} não está sendo afetado por condições...");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"\n{inimigo.Nome} está sendo afetado por condições...");
+                }
+
                 Console.ResetColor();
 
                 inimigo.AtualizarCondicoes();
